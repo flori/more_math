@@ -38,7 +38,7 @@ if defined? Gem
     s.version = PKG_VERSION
     s.summary =  "Library that provides more mathematics."
     s.description = "Library that provides more mathematical functions/algorithms than standard Ruby."
-    s.add_dependency('dslkit', '~> 0.2')
+    s.add_dependency('spruz', '=0.2.1')
 
     s.files = PKG_FILES
 

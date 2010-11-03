@@ -1,12 +1,12 @@
 require 'more_math'
+require 'spruz/memoize'
 
 module MoreMath
   # This class is used to contain elements and compute various statistical
   # values for them.
   class Sequence
     def initialize(elements)
-      @elements = elements
-      @elements.freeze
+      @elements = elements.dup.freeze
     end
 
     # Returns the array of elements.
@@ -28,105 +28,126 @@ module MoreMath
       @elements.size
     end
 
+    # Reset all memoized values of this sequence.
+    def reset
+      self.class.memoize_cache_clear
+      self
+    end
+
     # Returns the variance of the elements.
     def variance
-      @variance ||= sum_of_squares / size
+      sum_of_squares / size
     end
+    memoize_method :variance
 
     # Returns the sample_variance of the elements.
     def sample_variance
-      @sample_variance ||= size > 1 ? sum_of_squares / (size - 1.0) : 0.0
+      size > 1 ? sum_of_squares / (size - 1.0) : 0.0
     end
+    memoize_method :sample_variance
 
     # Returns the sum of squares (the sum of the squared deviations) of the
     # elements.
     def sum_of_squares
-      @sum_of_squares ||= @elements.inject(0.0) { |s, t| s + (t - arithmetic_mean) ** 2 }
+      @elements.inject(0.0) { |s, t| s + (t - arithmetic_mean) ** 2 }
     end
+    memoize_method :sum_of_squares
 
     # Returns the standard deviation of the elements.
     def standard_deviation
-      @sample_deviation ||= Math.sqrt(variance)
+      Math.sqrt(variance)
     end
+    memoize_method :standard_deviation
 
     # Returns the standard deviation of the elements in percentage of the
     # arithmetic mean.
     def standard_deviation_percentage
-      @standard_deviation_percentage ||= 100.0 * standard_deviation / arithmetic_mean
+      100.0 * standard_deviation / arithmetic_mean
     end
+    memoize_method :standard_deviation_percentage
 
     # Returns the sample standard deviation of the elements.
     def sample_standard_deviation
-      @sample_standard_deviation ||= Math.sqrt(sample_variance)
+      Math.sqrt(sample_variance)
     end
+    memoize_method :sample_standard_deviation
 
     # Returns the sample standard deviation of the elements in percentage
     # of the arithmetic mean.
     def sample_standard_deviation_percentage
-      @sample_standard_deviation_percentage ||= 100.0 * sample_standard_deviation / arithmetic_mean
+      100.0 * sample_standard_deviation / arithmetic_mean
     end
+    memoize_method :sample_standard_deviation_percentage
 
     # Returns the sum of all elements.
     def sum
-      @sum ||= @elements.inject(0.0) { |s, t| s + t }
+      @elements.inject(0.0) { |s, t| s + t }
     end
+    memoize_method :sum
 
     # Returns the arithmetic mean of the elements.
     def arithmetic_mean
-      @arithmetic_mean ||= sum / size
+      sum / size
     end
+    memoize_method :arithmetic_mean
 
     alias mean arithmetic_mean
 
     # Returns the harmonic mean of the elements. If any of the elements
     # is less than or equal to 0.0, this method returns NaN.
     def harmonic_mean
-      @harmonic_mean ||= (
-        sum = @elements.inject(0.0) { |s, t|
-          if t > 0
-            s + 1.0 / t
-          else
-            break nil
-          end
-        }
-        sum ? size / sum : 0 / 0.0
-      )
+      sum = @elements.inject(0.0) { |s, t|
+        if t > 0
+          s + 1.0 / t
+        else
+          break nil
+        end
+      }
+      sum ? size / sum : 0 / 0.0
     end
+    memoize_method :harmonic_mean
 
     # Returns the geometric mean of the elements. If any of the
     # elements is less than 0.0, this method returns NaN.
     def geometric_mean
-      @geometric_mean ||= (
-        sum = @elements.inject(0.0) { |s, t|
-          case
-          when t > 0
-            s + Math.log(t)
-          when t == 0
-            break :null
-          else
-            break nil
-          end
-        }
-        case sum
-        when :null
-          0.0
-        when Float
-          Math.exp(sum / size)
+      sum = @elements.inject(0.0) { |s, t|
+        case
+        when t > 0
+          s + Math.log(t)
+        when t == 0
+          break :null
         else
-          0 / 0.0
+          break nil
         end
-      )
+      }
+      case sum
+      when :null
+        0.0
+      when Float
+        Math.exp(sum / size)
+      else
+        0 / 0.0
+      end
     end
+    memoize_method :geometric_mean
 
     # Returns the minimum of the elements.
     def min
-      @min ||= @elements.min
+      @elements.min
     end
+    memoize_method :min
 
     # Returns the maximum of the elements.
     def max
-      @max ||= @elements.max
+      @elements.max
     end
+    memoize_method :max
+
+    # Return a sorted array of the elements.
+    def sorted
+      @elements.sort
+    end
+    memoize_method :sorted
 
     # Returns the +p+-percentile of the elements.
     # There are many methods to compute the percentile, this method uses the
@@ -136,17 +157,17 @@ module MoreMath
       (0...100).include?(p) or
         raise ArgumentError, "p = #{p}, but has to be in (0...100)"
       p /= 100.0
-      @sorted ||= @elements.sort
-      r = p * (@sorted.size + 1)
+      sorted_elements = sorted
+      r = p * (sorted_elements.size + 1)
       r_i = r.to_i
       r_f = r - r_i
       if r_i >= 1
-        result = @sorted[r_i - 1]
-        if r_i < @sorted.size
-          result += r_f * (@sorted[r_i] - @sorted[r_i - 1])
+        result = sorted_elements[r_i - 1]
+        if r_i < sorted_elements.size
+          result += r_f * (sorted_elements[r_i] - sorted_elements[r_i - 1])
         end
       else
-        result = @sorted[0]
+        result = sorted_elements[0]
       end
       result
     end
@@ -325,8 +346,9 @@ module MoreMath
     # Returns the LinearRegression object for the equation a * x + b which
     # represents the line computed by the linear regression algorithm.
     def linear_regression
-      @linear_regression ||= LinearRegression.new @elements
+      LinearRegression.new @elements
     end
+    memoize_method :linear_regression
 
     # Returns a Histogram instance with +bins+ as the number of bins for this
     # analysis' elements.
