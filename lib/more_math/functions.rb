@@ -136,6 +136,34 @@ module MoreMath
       end
     end
 
+    def log_ceil(n, b = 2)
+      raise ArgumentError, "n is required to be > 0" unless n > 0
+      raise ArgumentError, "b is required to be > 1" unless b > 1
+      e, result = 1, 0
+      until e >= n
+        e *= b
+        result += 1
+      end
+      result
+    end
+
+    def log_floor(n, b = 2)
+      raise ArgumentError, "n is required to be > 0" unless n > 0
+      raise ArgumentError, "b is required to be > 1" unless b > 1
+      e, result = 1, 0
+      until e * b > n
+        e *= b
+        result += 1
+      end
+      result
+    end
+
+    # Returns the base +b+ logarithm of the number +x+. +b+  defaults to base
+    # 2, binary logarithm.
+    def logb(x, b = 2)
+      Math.log(x) / Math.log(b)
+    end
+
     # Returns Cantor's tuple function for the tuple +*xs+ (the size must be at
     # least 2).
     def cantor_pairing(*xs)
@@ -146,6 +174,17 @@ module MoreMath
     # the length of the tuple (defaults to 2, a pair).
     def cantor_pairing_inv(c, n = 2)
       CantorPairingFunction.cantor_pairing_inv(c, n)
+    end
+
+    # Computes a Gödel number from +string+ in the +alphabet+ and returns it.
+    def numerate_string(string, alphabet = 'a'..'z')
+      NumerateStringFunction.numerate_string(string, alphabet)
+    end
+
+    # Computes the string in the +alphabet+ from a Gödel number +number+ and
+    # returns it. This is the inverse function of numerate_string.
+    def numerate_string_inv(number, alphabet = 'a'..'z')
+      NumerateStringFunction.numerate_string_inv(number, alphabet)
     end
   end
 end
