@@ -5,18 +5,6 @@ module MoreMath
   module NumerateStringFunction
     Functions = MoreMath::Functions
 
-    class << self
-      def compute_size(n, b)
-        i = 0
-        while n > 0
-          i += 1
-          n -= b ** i
-        end
-        i
-      end
-      memoize_function :compute_size
-    end
-
     module_function
 
     def numerate_string(string, alphabet = 'a'..'z')
@@ -53,14 +41,27 @@ module MoreMath
       result
     end
 
-    def self.convert_alphabet(alphabet)
-      if alphabet.respond_to?(:to_ary)
-        alphabet.to_ary
-      elsif alphabet.respond_to?(:to_str)
-        alphabet.to_str.split(//)
-      else
-        alphabet.to_a
+    class << self
+      def compute_size(n, b)
+        i = 0
+        while n > 0
+          i += 1
+          n -= b ** i
+        end
+        i
+      end
+      memoize_function :compute_size
+
+      def convert_alphabet(alphabet)
+        if alphabet.respond_to?(:to_ary)
+          alphabet.to_ary
+        elsif alphabet.respond_to?(:to_str)
+          alphabet.to_str.split(//)
+        else
+          alphabet.to_a
+        end
       end
     end
+
   end
 end
