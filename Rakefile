@@ -14,7 +14,7 @@ CLOBBER.include FileList['data/*']
 
 desc "Run unit tests"
 task :test do
-  sh %{RUBYOPT="-Ilib $RUBYOPT" testrb tests/*.rb}
+  sh %{RUBYOPT="-Ilib $RUBYOPT" testrb ./tests/*.rb}
 end
 
 desc "Testing library with coverage"
