@@ -54,7 +54,7 @@ module MoreMath
     attr_reader :alphabet
 
     def coerce(other)
-      [ number, naturalize(other) ]
+      [ naturalize(other), number ]
     end
 
     def *(other)
@@ -125,6 +125,10 @@ module MoreMath
       self
     end
 
+    def to_string_numeral
+      self
+    end
+
     private
 
     def naturalize(number)
@@ -135,6 +139,10 @@ module MoreMath
     module Functions
       def StringNumeral(other, alphabet = 'a'..'z')
         ::MoreMath::StringNumeral.from(other, alphabet)
+      end
+
+      def to_sn
+        StringNumeral.from(self)
       end
     end
   end
