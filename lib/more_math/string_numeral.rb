@@ -141,8 +141,8 @@ module MoreMath
         ::MoreMath::StringNumeral.from(other, alphabet)
       end
 
-      def to_sn
-        StringNumeral.from(self)
+      def to_sn(alphabet = 'a'..'z')
+        StringNumeral === self ? self : StringNumeral.from(self, alphabet)
       end
     end
   end
