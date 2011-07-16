@@ -8,7 +8,7 @@ Ruby library that contains various mathematical functions and algorithms.
 
 The homepage of this library is located at
 
-* http://flori.github.com/more_math
+* http://github.com/flori/more_math
 
 == Author
 

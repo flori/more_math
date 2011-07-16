@@ -177,14 +177,14 @@ module MoreMath
     end
 
     # Computes a Gödel number from +string+ in the +alphabet+ and returns it.
-    def numerate_string(string, alphabet = 'a'..'z')
-      NumerateStringFunction.numerate_string(string, alphabet)
+    def numberify_string(string, alphabet = 'a'..'z')
+      NumberifyStringFunction.numberify_string(string, alphabet)
     end
 
     # Computes the string in the +alphabet+ from a Gödel number +number+ and
-    # returns it. This is the inverse function of numerate_string.
-    def numerate_string_inv(number, alphabet = 'a'..'z')
-      NumerateStringFunction.numerate_string_inv(number, alphabet)
+    # returns it. This is the inverse function of numberify_string.
+    def stringify_number(number, alphabet = 'a'..'z')
+      NumberifyStringFunction.stringify_number(number, alphabet)
     end
   end
 end

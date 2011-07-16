@@ -2,13 +2,13 @@ require 'more_math'
 require 'spruz/memoize'
 
 module MoreMath
-  module NumerateStringFunction
+  module NumberifyStringFunction
     Functions = MoreMath::Functions
 
     module_function
 
-    def numerate_string(string, alphabet = 'a'..'z')
-      alphabet = NumerateStringFunction.convert_alphabet alphabet
+    def numberify_string(string, alphabet = 'a'..'z')
+      alphabet = NumberifyStringFunction.convert_alphabet alphabet
       s, k = string.size, alphabet.size
       result = 0
       for i in 0...s
@@ -20,15 +20,15 @@ module MoreMath
       result
     end
 
-    def numerate_string_inv(number, alphabet = 'a'..'z')
+    def stringify_number(number, alphabet = 'a'..'z')
       case
       when number < 0
         raise ArgumentError, "number is required to be >= 0"
       when number == 0
         return ''
       end
-      alphabet = NumerateStringFunction.convert_alphabet alphabet
-      s = NumerateStringFunction.compute_size(number, alphabet.size)
+      alphabet = NumberifyStringFunction.convert_alphabet alphabet
+      s = NumberifyStringFunction.compute_size(number, alphabet.size)
       k, m = alphabet.size, number
       result = ' ' * s
       q = m
@@ -62,6 +62,5 @@ module MoreMath
         end
       end
     end
-
   end
 end
