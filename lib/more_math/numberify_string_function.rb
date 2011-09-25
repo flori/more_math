@@ -1,5 +1,5 @@
 require 'more_math'
-require 'spruz/memoize'
+require 'tins/memoize'
 
 module MoreMath
   module NumberifyStringFunction

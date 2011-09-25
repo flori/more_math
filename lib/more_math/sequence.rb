@@ -1,5 +1,5 @@
 require 'more_math'
-require 'spruz/memoize'
+require 'tins/memoize'
 
 module MoreMath
   # This class is used to contain elements and compute various statistical
