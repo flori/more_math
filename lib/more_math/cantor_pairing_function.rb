@@ -4,7 +4,7 @@ module MoreMath
   module CantorPairingFunction
 
     module_function
-  
+
     def cantor_pairing(*xs)
       if xs.size == 1 and xs.first.respond_to?(:to_ary)
         xs = xs.first.to_ary
@@ -31,7 +31,7 @@ module MoreMath
       end
       v - 1
     end
-   
+
     def cantor_pairing_inv(c, n = 2)
       raise ArgumentError, "n is required to be >= 2" unless n >= 2
       result = []
