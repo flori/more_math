@@ -1,12 +1,15 @@
+require 'more_math/ranking_common'
+
 module MoreMath
   class Permutation
     include Enumerable
     include Comparable
+    include RankingCommon
 
     # Creates a new Permutation instance of <code>size</code>
     # (and ranked with <code>rank</code>).
     def initialize(size, rank = 0)
-      @size, @rank = size, rank
+      @size, self.rank = size, rank
       @last = factorial(size) - 1
     end
 
@@ -47,17 +50,6 @@ module MoreMath
       perm
     end
 
-    # Returns the size of this permutation, a Fixnum.
-    attr_reader :size
-
-    # Returns the size of this permutation, a Fixnum in the range
-    # of 0 and Permutation#last.
-    attr_reader :rank
-
-    # Returns the rank of the last ranked Permutation of size
-    # Permutation#size .
-    attr_reader :last
-
     # Assigns <code>m</code> to the rank attribute of this Permutation
     # instance. That implies that the indices produced by a call to the
     # Permutation#value method of this instance is the permutation ranked with
@@ -95,86 +87,6 @@ module MoreMath
       projection = data.clone
       value.each_with_index { |i, j| projection[j] = data[i] }
       projection
-    end
-
-    # Switches this instance to the next ranked Permutation.
-    # If this was the Permutation#last permutation it wraps around
-    # the first (<code>rank == 0</code>) permutation.
-    def next!
-      @rank += 1
-      @rank = 0 if @rank > last
-      self
-    end
-
-    alias succ! next!
-
-    # Returns the next ranked Permutation instance.
-    # If this instance is the Permutation#last permutation it returns the first
-    # (<code>rank == 0</code>) permutation.
-    def next
-      clone.next!
-    end
-
-    alias succ next
-
-    # Switches this instance to the previously ranked Permutation.
-    # If this was the first permutation it returns the last (<code>rank ==
-    # Permutation#last</code>) permutation.
-    def pred!
-      @rank -= 1
-      @rank = last if @rank < 0
-      self
-    end
-
-    # Returns the previously ranked Permutation. If this was the first
-    # permutation it returns the last (<code>rank == Permutation#last</code>)
-    # permutation.
-    def pred
-      clone.pred!
-    end
-
-    # Switches this Permutation instance to random permutation
-    # of size Permutation#size.
-    def random!
-      new_rank = rand(last + 1).to_i
-      self.rank = new_rank
-      self
-    end
-
-    # Returns a random Permutation instance # of size Permutation#size.
-    def random
-      clone.random!
-    end
-
-    # Iterates over all permutations of size Permutation#size starting with the
-    # first (<code>rank == 0</code>) ranked permutation and ending with the
-    # last (<code>rank == Permutation#last</code>) ranked permutation while
-    # yielding to a freshly created Permutation instance for every iteration
-    # step.
-    #
-    # The mixed in methods from the Enumerable module rely on this method.
-    def each # :yields: perm
-      0.upto(last) do |r|
-        klon = clone
-        klon.rank = r
-        yield klon
-      end
-    end
-
-    # Does something similar to Permutation#each. It doesn't create new
-    # instances (less overhead) for every iteration step, but yields to a
-    # modified self instead. This is useful if one only wants to call a
-    # method on the yielded value and work with the result of this call. It's
-    # not a good idea to put the yielded values in a data structure because the
-    # will all reference the same (this!) instance. If you want to do this
-    # use Permutation#each.
-    def each!
-      old_rank = rank
-      0.upto(last) do |r|
-        self.rank = r
-        yield self
-      end
-      self.rank = old_rank
     end
 
     # Compares to Permutation instances according to their Permutation#size

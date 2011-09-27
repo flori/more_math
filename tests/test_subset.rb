@@ -3,19 +3,19 @@
 require 'test/unit'
 require 'more_math'
 
-class TestPowerSet < Test::Unit::TestCase
+class TestSubset < Test::Unit::TestCase
   include MoreMath
 
   def test_empty_set
-    assert_equal [[]], PowerSet.new([]).to_a
+    assert_equal [[]], Subset.for([]).map(&:value)
   end
 
   def test_one_element_set
-    assert_equal [[], [1]], PowerSet.new([1]).to_a
+    assert_equal [[], [1]], Subset.for([1]).map(&:value)
   end
 
   def test_three_element_set
     assert_equal [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]],
-      PowerSet.new([1, 2, 3]).to_a
+      Subset.for([1, 2, 3]).map(&:value)
   end
 end
