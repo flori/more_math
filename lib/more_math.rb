@@ -15,5 +15,6 @@ module MoreMath
   require 'more_math/numberify_string_function'
   require 'more_math/sequence'
   require 'more_math/string_numeral'
+  require 'more_math/power_set'
   require 'more_math/version'
 end
