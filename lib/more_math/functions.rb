@@ -60,7 +60,7 @@ module MoreMath
             -((a + m) * (a + b + m) * x) / ((a + 2 * m) * (a + 2 * m + 1))
           end
         end
-        exp(a * log(x) + b * log(1.0 - x) - log(a) - log_beta(a, b)) / 
+        exp(a * log(x) + b * log(1.0 - x) - log(a) - log_beta(a, b)) /
           fraction[x, epsilon, max_iterations]
       end
     rescue Errno::ERANGE, Errno::EDOM

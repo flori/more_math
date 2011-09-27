@@ -111,7 +111,7 @@ module MoreMath
         end
       end
     end
-   
+
     # Returns the inverse cumulative probability (t-value) of the TDistribution
     # for the probability +p+.
     def inverse_probability(p)
@@ -120,7 +120,7 @@ module MoreMath
         -1 / 0.0
       when p >= 1
         1 / 0.0
-      else 
+      else
         begin
           bisect = NewtonBisection.new { |x| probability(x) - p }
           range = bisect.bracket(-10..10)
