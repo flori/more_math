@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'test/unit'
+require 'test_helper'
 require 'more_math'
 
-class TestSubset < Test::Unit::TestCase
+class SubsetTest < Test::Unit::TestCase
   include MoreMath
 
   def test_empty_set

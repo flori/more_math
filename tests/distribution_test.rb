@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'test/unit'
+require 'test_helper'
 require 'more_math'
 
-class TestDistribution < Test::Unit::TestCase
+class DistributionTest < Test::Unit::TestCase
   include MoreMath
 
   def setup

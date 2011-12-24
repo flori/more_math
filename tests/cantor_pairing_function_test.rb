@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'test/unit'
+require 'test_helper'
 require 'more_math'
 
-class TestCantorPairingFunction < Test::Unit::TestCase
+class CantorPairingFunctionTest < Test::Unit::TestCase
   include MoreMath::Functions
 
   def test_cantor_pairing_function

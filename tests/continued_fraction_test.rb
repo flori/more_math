@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'test/unit'
+require 'test_helper'
 require 'more_math'
 
-class TestContinuedFraction < Test::Unit::TestCase
+class ContinuedFractionTest < Test::Unit::TestCase
   include MoreMath
 
   def setup

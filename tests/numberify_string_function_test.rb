@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'test/unit'
+require 'test_helper'
 require 'more_math'
 
-class TestNumberifyStringFunction < Test::Unit::TestCase
+class NumberifyStringFunctionTest < Test::Unit::TestCase
   include MoreMath::Functions
 
   def test_log_ceil

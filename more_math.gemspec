@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Florian Frank"]
-  s.date = "2011-10-27"
+  s.date = "2011-12-24"
   s.description = "Library that provides more mathematical functions/algorithms than standard Ruby."
   s.email = "flori@ping.de"
   s.extra_rdoc_files = ["README.rdoc", "lib/more_math/cantor_pairing_function.rb", "lib/more_math/version.rb", "lib/more_math/functions.rb", "lib/more_math/sequence.rb", "lib/more_math/linear_regression.rb", "lib/more_math/string_numeral.rb", "lib/more_math/ranking_common.rb", "lib/more_math/subset.rb", "lib/more_math/histogram.rb", "lib/more_math/constants/functions_constants.rb", "lib/more_math/numberify_string_function.rb", "lib/more_math/distributions.rb", "lib/more_math/exceptions.rb", "lib/more_math/newton_bisection.rb", "lib/more_math/permutation.rb", "lib/more_math/continued_fraction.rb", "lib/more_math.rb"]
@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://flori.github.com/more_math"
   s.rdoc_options = ["--title", "MoreMath -- More Math in Ruby", "--main", "README.rdoc"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.10"
+  s.rubygems_version = "1.8.13"
   s.summary = "Library that provides more mathematics."
   s.test_files = ["tests/test_subset.rb", "tests/test_permutation.rb", "tests/test_cantor_pairing_function.rb", "tests/test_continued_fraction.rb", "tests/test_newton_bisection.rb", "tests/test_functions.rb", "tests/test_distribution.rb", "tests/test_sequence.rb", "tests/test_histogram.rb", "tests/test_numberify_string_function.rb"]
 
@@ -22,14 +22,14 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<gem_hadar>, ["~> 0.1.1"])
+      s.add_development_dependency(%q<gem_hadar>, ["~> 0.1.4"])
       s.add_runtime_dependency(%q<tins>, ["~> 0.3"])
     else
-      s.add_dependency(%q<gem_hadar>, ["~> 0.1.1"])
+      s.add_dependency(%q<gem_hadar>, ["~> 0.1.4"])
       s.add_dependency(%q<tins>, ["~> 0.3"])
     end
   else
-    s.add_dependency(%q<gem_hadar>, ["~> 0.1.1"])
+    s.add_dependency(%q<gem_hadar>, ["~> 0.1.4"])
     s.add_dependency(%q<tins>, ["~> 0.3"])
   end
 end

@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'test/unit'
+require 'test_helper'
 require 'more_math'
 
-class TestNewtonBisection < Test::Unit::TestCase
+class NewtonBisectionTest < Test::Unit::TestCase
   include MoreMath
 
   def test_bracket

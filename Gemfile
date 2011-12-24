@@ -3,3 +3,7 @@
 source :rubygems
 
 gemspec
+
+group :development do
+  gem 'simplecov'
+end

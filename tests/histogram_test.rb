@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 
-require 'test/unit'
+require 'test_helper'
 require 'more_math'
 require 'stringio'
 
-class TestHistogram < Test::Unit::TestCase
+class HistogramTest < Test::Unit::TestCase
   include MoreMath
 
   def test_histogram

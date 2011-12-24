@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'test/unit'
+require 'test_helper'
 require 'more_math'
 
-class TestFunctions < Test::Unit::TestCase
+class FunctionsTest < Test::Unit::TestCase
   include MoreMath::Functions
 
   def gammaP5_2(x)

@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'test/unit'
+require 'test_helper'
 require 'more_math'
 
-class TestPermutation < Test::Unit::TestCase
+class PermutationTest < Test::Unit::TestCase
   include MoreMath
 
   def setup
