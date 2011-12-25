@@ -5,7 +5,9 @@ module MoreMath
     include ::MoreMath::NumberifyStringFunction
 
     def self.from(object, alphabet = 'a'..'z')
-      if object.respond_to?(:to_str)
+      if Symbol === object
+        StringNumeral.from_string(object.to_s, alphabet)
+      elsif object.respond_to?(:to_str)
         StringNumeral.from_string(object.to_str, alphabet)
       elsif object.respond_to?(:to_int)
         StringNumeral.from_number(object.to_int, alphabet)
