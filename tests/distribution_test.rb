@@ -44,6 +44,7 @@ class DistributionTest < Test::Unit::TestCase
     ps.zip(zs) do |p, z|
       assert_in_delta(-z, std.inverse_probability(1 - p), 1E-2)
     end
+    assert_in_delta 0, std.inverse_probability(0.5), 1E-6
   end
 
   def test_chisquaredistribution

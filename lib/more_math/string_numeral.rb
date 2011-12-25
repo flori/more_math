@@ -40,12 +40,13 @@ module MoreMath
       @number ||= numberify_string(@string, @alphabet)
     end
     alias to_i number
+    alias to_int number
 
     def string
       @string ||= stringify_number(@number, @alphabet).freeze
     end
-
     alias to_s string
+    alias to_str string
 
     def inspect
       "#<#{self.class}: #{string.inspect} #{number.inspect}>"
@@ -125,8 +126,18 @@ module MoreMath
       self
     end
 
-    def to_string_numeral
-      self
+    def eql?(other)
+      if other.respond_to?(:to_int)
+        to_int == other.to_int
+      elsif other.respond_to?(:to_str)
+        to_str == other.to_str
+      end
+    end
+
+    alias == eql?
+
+    def hash
+      number.hash
     end
 
     private
@@ -141,8 +152,8 @@ module MoreMath
         ::MoreMath::StringNumeral.from(other, alphabet)
       end
 
-      def to_sn(alphabet = 'a'..'z')
-        StringNumeral === self ? self : StringNumeral.from(self, alphabet)
+      def to_string_numeral(alphabet = 'a'..'z')
+        StringNumeral(self, alphabet)
       end
     end
   end

@@ -31,7 +31,7 @@ module MoreMath
         -1 / 0.0
       when p >= 1
         1 / 0.0
-      when p == 0.5 # This is a bit sloppy, maybe improve this later.
+      when (p - 0.5).abs <= Float::EPSILON
         @mu
       else
         begin

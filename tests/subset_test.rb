@@ -15,7 +15,8 @@ class SubsetTest < Test::Unit::TestCase
   end
 
   def test_three_element_set
-    assert_equal [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]],
-      Subset.for([1, 2, 3]).map(&:value)
+    expected = [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
+    assert_equal expected, Subset.for([1, 2, 3]).map(&:value)
+    assert_equal expected, Subset.power_set([1, 2, 3])
   end
 end

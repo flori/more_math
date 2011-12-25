@@ -37,6 +37,8 @@ class NumberifyStringFunctionTest < Test::Unit::TestCase
     assert_equal 3, numberify_string('c', 'abc')
     assert_equal 4, numberify_string('aa', 'abc')
     assert_equal 5, numberify_string('ab', 'abc')
+    assert_equal 5, numberify_string('ab', %w[a b c])
+    assert_equal 5, numberify_string('ab', 'a'..'c')
   end
 
   def test_numberify_string_inv_function

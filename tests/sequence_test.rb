@@ -184,6 +184,7 @@ class SequenceTest < Test::Unit::TestCase
     assert_in_delta 0.3, @flat.median, 1E-8
     assert_in_delta 0.3, @flat.percentile(75), 1E-8
     assert_equal 100, @flat.histogram(10).to_a.first[1]
+    assert @flat.linear_regression.residues.all? { |r| r.abs <= 1E-6 }
   end
 
   def test_half
@@ -202,6 +203,7 @@ class SequenceTest < Test::Unit::TestCase
     assert_in_delta 37.375, @half.percentile(75), 1E-8
     assert_equal [10] * 10, counts = @half.histogram(10).to_a.transpose[1]
     assert_equal 100, counts.inject { |s, x| s + x }
+    assert @half.linear_regression.residues.all? { |r| r.abs <= 0.5 }
   end
 
   def test_rand
@@ -285,6 +287,7 @@ class SequenceTest < Test::Unit::TestCase
     assert_equal [3, 4, 9, 12, 18, 14, 4, 5, 0, 1],
       counts = @book.histogram(10).to_a.transpose[1]
     assert_equal 70, counts.inject { |s, x| s + x }
+    assert @flat.linear_regression.residues.all? { |r| r.abs <= 1E-6 }
   end
 
   def test_cover

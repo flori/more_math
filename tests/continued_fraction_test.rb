@@ -7,6 +7,7 @@ class ContinuedFractionTest < Test::Unit::TestCase
   include MoreMath
 
   def setup
+    @zero = ContinuedFraction.for_a([-1,2,3]).for_b([2,3,3])
     @none1 = ContinuedFraction.for_a proc {}
     @none2 = ContinuedFraction.for_a {}
     @phi = ContinuedFraction.new
@@ -25,6 +26,7 @@ class ContinuedFractionTest < Test::Unit::TestCase
   end
 
   def test_continued_fractions
+    assert @zero[].zero?
     assert @none1[1].nan?
     assert @none2[1].nan?
     assert_in_delta 1.618033, @phi[], 1E-6
@@ -36,5 +38,17 @@ class ContinuedFractionTest < Test::Unit::TestCase
     assert_in_delta 0.581976, @a073333[], 1E-6
     assert_in_delta Math.atan(0.5), @atan[0.5], 1E-10
     assert_in_delta Math::PI, @pi[], 1E-10
+  end
+
+  def test_invalid_arguments
+    assert_raise(ArgumentError) { ContinuedFraction.for_a }
+    assert_raise(ArgumentError) { ContinuedFraction.for_b }
+  end
+
+
+  def test_to_proc
+    atan = @atan.to_proc
+    assert_kind_of Proc, atan
+    assert_in_delta Math::PI, 4 * atan[1], 1E-10
   end
 end
