@@ -15,6 +15,7 @@ GemHadar do
   title       "#{name.camelize} -- More Math in Ruby"
 
   dependency  'tins', '~>0.3'
+  development_dependency 'utils'
 
   install_library do
     libdir = CONFIG["sitelibdir"]
