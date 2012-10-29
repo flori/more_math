@@ -194,8 +194,7 @@ class PermutationTest < Test::Unit::TestCase
   def test_project
     too_big = Array.new(10)
     @perms.each_with_index do |perms, i|
-      assert_equal(@projected[i],
-                   perms.map { |p| p.project(@projected[i][0]) })
+      assert_equal(@projected[i], perms.map { |p| p.project(@projected[i][0]) })
       assert_raises(ArgumentError) { perms.project }
       assert_raises(ArgumentError) { perms.project(too_big) }
     end
@@ -250,5 +249,63 @@ class PermutationTest < Test::Unit::TestCase
       assert_equal(@signum[i].map { |x| x == -1 },
                    perm.map { |p| p.odd? })
     end
+  end
+
+  def test_identity
+    a = ("A".."Z").to_a
+    b = a.shuffle
+    p = Permutation.for_mapping(a, b)
+    assert_equal(Permutation.identity(p.size), Permutation.from_value((0..25).to_a))
+    assert_equal(Permutation.identity(p.size), p.identity)
+    assert_equal(p * -p, p.identity)
+  end
+
+  def test_for_mapping_basic
+    a = (0..99).to_a
+    b = a.shuffle
+    ref = Permutation.from_value(b)
+    assert_equal(Permutation.for_mapping(a, b), ref)
+  end
+
+
+  def test_for_mapping_random
+    a = ("A".."Z").to_a
+    b = a.shuffle
+    p = Permutation.for_mapping(a, b)
+    assert_equal(p.project(a), b)
+    3.times { a.push("Z") }
+    b = a.shuffle
+    p = Permutation.for_mapping(a, b)
+    assert_equal(p.project(a), b)
+  end
+
+  def test_for_mappings_random_objects
+    a = [Array.new, Hash.new, nil, 0]
+    b = [Hash.new, nil, Array.new, 0]
+    p = Permutation.for_mapping(a, b)
+    assert_equal(p.value, [1, 2, 0, 3])
+  end
+
+  def test_mapping_for_non_arrays
+    a = "abcdef"
+    b = a.split('').shuffle * ''
+    p = Permutation.for_mapping(a, b)
+    assert_equal(p.project(a), b)
+  end
+
+  def test_power
+    4.times do |i|
+      perms = Permutation.new(i)
+      perms.each do |perm|
+        assert_equal(perm * perm, perm ** 2)
+        assert_equal(perm * perm * perm, perm ** 3)
+        assert_equal(perm * perm * perm * perm, perm ** 4)
+        assert_equal(perm, perm ** 1)
+        assert_equal(Permutation.identity(i), perm ** 0)
+        assert_equal(-perm, perm ** -1)
+        assert_equal(-perm * -perm, perm ** -2)
+      end
+    end
+    assert_raise(TypeError) { Permutation.new(4).random ** 'nix' }
   end
 end

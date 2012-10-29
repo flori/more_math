@@ -18,6 +18,7 @@ module MoreMath
     # in the range of <code>0</code> and <code>indices.size - 1</code>. This is
     # for example the result of a call to the Permutation#value method.
     def self.from_value(indices)
+      indices = indices.clone
       obj = new(indices.size)
       obj.instance_eval do
         self.rank = rank_indices(indices)
@@ -49,6 +50,53 @@ module MoreMath
       perm.instance_variable_set(:@collection, collection)
       perm
     end
+
+    # Shortcut to generate the identity permutation that has
+    # Permutation#size <code>n</code>.
+    def self.identity(n)
+      new(n)
+    end
+
+    # Returns the identity permutation that has the same Permutation#size as this
+    # instance.
+    def identity
+      self.class.new(size)
+    end
+
+    # Builds a permutation that maps <code>a</code> into <code>b</code>.
+    # Both arguments must be the same length and must contain the same
+    # elements.  If these arrays contain duplicate elements, the solution
+    # will not be unique.
+    def self.for_mapping(a, b)
+      a.size == b.size or
+        raise ArgumentError, "Initial and final lists must be the same length"
+
+      lookup = Hash.new { |h, k| h[k] = [] }
+      a.size.times { |i| lookup[a[i]] <<= i }
+
+      value = Array.new(b.size) do |i|
+        e = b[i]
+        lookup[e].pop or raise ArgumentError, "no corresponding element for #{e.inspect}"
+      end
+      Permutation.from_value value
+    end
+
+    # Computes the nth power (ie the nth repeated permutation) of this instance.
+    # Negative powers are taken to be powers of the inverse.
+    def power(n)
+      if n.respond_to?(:to_int)
+        n = n.to_int
+      else
+        raise TypeError, "#{n.inspect} cannot be converted to an integer"
+      end
+      if n >= 0
+        (1..n).inject(identity) { |p, e| p * self }
+      else # negative powers are taken to be powers of the inverse
+        -power(-n)
+      end
+    end
+
+    alias ** power
 
     # Assigns <code>m</code> to the rank attribute of this Permutation
     # instance. That implies that the indices produced by a call to the
@@ -149,7 +197,7 @@ module MoreMath
     def compose(other)
       size == other.size or raise ArgumentError,
         "permutations of unequal sizes cannot be composed!"
-      indices = self.value
+      indices = value
       composed = other.value.map { |i| indices[i] }
       klon = clone
       klon.rank = rank_indices(composed)
@@ -227,6 +275,8 @@ module MoreMath
       @@fcache[n]
     end
 
+    # Rank the indices of the permutation +p+. Beware that this method may
+    # change its argument +p+.
     def rank_indices(p)
       result = 0
       for i in 0...size
@@ -238,6 +288,8 @@ module MoreMath
       result
     end
 
+    # Unrank the rank +m+, that is create a permutation of the appropriate size
+    # and rank as an array of indices and return it.
     def unrank_indices(m)
       result = Array.new(size, 0)
       for i in 0...size
