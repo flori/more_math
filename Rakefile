@@ -10,7 +10,7 @@ GemHadar do
   summary     'Library that provides more mathematics.'
   description 'Library that provides more mathematical functions/algorithms than standard Ruby.'
   test_dir    'tests'
-  ignore      '.*.sw[pon]', 'pkg', 'Gemfile.lock', 'coverage', '.rvmrc'
+  ignore      '.*.sw[pon]', 'pkg', 'Gemfile.lock', 'coverage', '.rvmrc', '.AppleDouble'
   readme      'README.rdoc'
   title       "#{name.camelize} -- More Math in Ruby"
 
