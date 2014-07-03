@@ -17,6 +17,7 @@ GemHadar do
   dependency  'tins', '~>1.0'
   development_dependency 'rake'
   development_dependency 'simplecov'
+  development_dependency 'test-unit'
 
   install_library do
     libdir = CONFIG["sitelibdir"]
