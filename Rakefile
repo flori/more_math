@@ -14,9 +14,9 @@ GemHadar do
   readme      'README.rdoc'
   title       "#{name.camelize} -- More Math in Ruby"
 
-  dependency  'tins', '~>0.3'
+  dependency  'tins', '~>1.0'
   development_dependency 'rake'
-  development_dependency 'utils'
+  development_dependency 'simplecov'
 
   install_library do
     libdir = CONFIG["sitelibdir"]
