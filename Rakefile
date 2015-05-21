@@ -10,7 +10,8 @@ GemHadar do
   summary     'Library that provides more mathematics.'
   description 'Library that provides more mathematical functions/algorithms than standard Ruby.'
   test_dir    'tests'
-  ignore      '.*.sw[pon]', 'pkg', 'Gemfile.lock', 'coverage', '.rvmrc', '.AppleDouble'
+  ignore      '.*.sw[pon]', 'pkg', 'Gemfile.lock', 'coverage', '.rvmrc',
+    '.AppleDouble', 'tags'
   readme      'README.rdoc'
   title       "#{name.camelize} -- More Math in Ruby"
 
@@ -18,18 +19,4 @@ GemHadar do
   development_dependency 'rake'
   development_dependency 'simplecov'
   development_dependency 'test-unit'
-
-  install_library do
-    libdir = CONFIG["sitelibdir"]
-    file = 'lib/more_math.rb'
-    install(file, libdir, :mode => 0644)
-    mkdir_p subdir = File.join(libdir, 'more_math')
-    for f in Dir['lib/more_math/*.rb']
-      install(f, subdir)
-    end
-    mkdir_p subdir = File.join(libdir, 'more_math', 'constants')
-    for f in Dir['lib/more_math/constants/*.rb']
-      install(f, subdir)
-    end
-  end
 end
