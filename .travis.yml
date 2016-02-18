@@ -8,3 +8,7 @@ matrix:
   allow_failures:
     - rvm: ruby-head
     - rvm: jruby-head
+sudo: false
+addons:
+  code_climate:
+    repo_token: c9eff249077e5d42951c2ac14abcaba555cb214524310e8d8f1769a579cbeb81
