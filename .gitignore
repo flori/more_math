@@ -1,5 +1,6 @@
 .*.sw[pon]
 .AppleDouble
+.byebug_history
 .rvmrc
 Gemfile.lock
 coverage

@@ -35,19 +35,24 @@ module MoreMath
       new.for_b(arg, &block)
     end
 
+    def for_arg(arg = nil, &block)
+      if arg and !block
+        arg
+      elsif block and !arg
+        block
+      else
+        raise ArgumentError, "exactly one argument or one block required"
+      end
+    end
+    private :for_arg
+
     # This method either takes a block or an argument +arg+. The argument +arg+
     # has to respond to an integer index n >= 0 and return the value a_n. The
     # block has to return the value for a_n when +n+ is passed as the first
     # argument to the block. If a_n is dependent on an +x+ value (see the call
     # method) the +x+ will be the second argument of the block.
     def for_a(arg = nil, &block)
-      if arg and !block
-        @a = arg
-      elsif block and !arg
-        @a = block
-      else
-        raise ArgumentError, "exactly one argument or one block required"
-      end
+      @a = for_arg(arg, &block)
       self
     end
 
@@ -57,32 +62,27 @@ module MoreMath
     # argument to the block. If b_n is dependent on an +x+ value (see the call
     # method) the +x+ will be the second argument of the block.
     def for_b(arg = nil, &block)
-      if arg and !block
-        @b = arg
-      elsif block and !arg
-        @b = block
-      else
-        raise ArgumentError, "exactly one argument or one block required"
-      end
+      @b = for_arg(arg, &block)
       self
     end
 
+    def value(v, n, x = nil)
+      result = if x
+        v[n, x]
+      else
+        v[n]
+      end and result.to_f
+    end
+    private :value
+
     # Returns the value for a_n or a_n(x).
     def a(n, x = nil)
-      result = if x
-        @a[n, x]
-      else
-        @a[n]
-      end and result.to_f
+      value(@a, n, x)
     end
 
     # Returns the value for b_n or b_n(x).
     def b(n, x = nil)
-      result = if x
-        @b[n, x]
-      else
-        @b[n]
-      end and result.to_f
+      value(@b, n, x)
     end
 
     # Evaluates the continued fraction for the value +x+ (if any) with the
