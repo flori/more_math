@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["Florian Frank"]
-  s.date = "2016-02-18"
+  s.date = "2016-05-24"
   s.description = "Library that provides more mathematical functions/algorithms than standard Ruby."
   s.email = "flori@ping.de"
   s.extra_rdoc_files = ["README.rdoc", "lib/more_math.rb", "lib/more_math/cantor_pairing_function.rb", "lib/more_math/constants/functions_constants.rb", "lib/more_math/continued_fraction.rb", "lib/more_math/distributions.rb", "lib/more_math/exceptions.rb", "lib/more_math/functions.rb", "lib/more_math/histogram.rb", "lib/more_math/linear_regression.rb", "lib/more_math/newton_bisection.rb", "lib/more_math/numberify_string_function.rb", "lib/more_math/permutation.rb", "lib/more_math/ranking_common.rb", "lib/more_math/sequence.rb", "lib/more_math/string_numeral.rb", "lib/more_math/subset.rb", "lib/more_math/version.rb"]
