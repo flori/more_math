@@ -1,10 +1,14 @@
 require 'more_math'
 require 'tins/memoize'
+require 'more_math/sequence/moving_average'
+require 'more_math/sequence/refinement'
 
 module MoreMath
   # This class is used to contain elements and compute various statistical
   # values for them.
   class Sequence
+    include MoreMath::Sequence::MovingAverage
+
     def initialize(elements)
       @elements = elements.dup.freeze
     end
@@ -33,6 +37,19 @@ module MoreMath
       self.class.memoize_cache_clear
       self
     end
+
+    def to_ary
+      @elements.dup
+    end
+
+    alias to_a to_ary
+
+    # Push +element+ on this Sequence and return a new Sequence instance with
+    # +element+ as its last element.
+    def push(element)
+      Sequence.new(@elements.dup.push(element))
+    end
+    alias << push
 
     # Returns the variance of the elements.
     def variance

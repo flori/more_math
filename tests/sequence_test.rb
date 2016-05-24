@@ -321,4 +321,11 @@ class SequenceTest < Test::Unit::TestCase
     assert @flat.cover?(@rasi)
     assert_operator @flat.suggested_sample_size(@rasi), '>', 500
   end
+
+  def test_sequence_push
+    seq = Sequence.new([ 1, 2 ])
+    seq2 = seq.push 3
+    assert_not_same seq2, seq
+    assert_equal [ 1, 2, 3 ], seq2.elements
+  end
 end
