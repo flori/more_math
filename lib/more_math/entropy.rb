@@ -17,7 +17,7 @@ module MoreMath
       -1.0 * size * frequency * Math.log2(frequency)
     end
 
-    def entropy_percentage(text)
+    def entropy_ratio(text)
       size = text.each_char.size
       size <= 1 and return 0.0
       entropy(text) / entropy_ideal(size)

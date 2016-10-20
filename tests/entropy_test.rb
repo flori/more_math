@@ -34,11 +34,11 @@ class EntropyTest < Test::Unit::TestCase
     assert_in_delta 4, entropy_ideal(16), 1E-3
   end
 
-  def test_entropy_percentage
-    assert_equal 0, entropy_percentage(@empty)
-    assert_equal 0, entropy_percentage(@low)
-    assert_in_delta 0.6834, entropy_percentage(@string), 1E-3
-    assert_in_delta 0.8167, entropy_percentage(@high), 1E-3
-    assert_in_delta 1.0, entropy_percentage(@random), 1E-3
+  def test_entropy_ratio
+    assert_equal 0, entropy_ratio(@empty)
+    assert_equal 0, entropy_ratio(@low)
+    assert_in_delta 0.6834, entropy_ratio(@string), 1E-3
+    assert_in_delta 0.8167, entropy_ratio(@high), 1E-3
+    assert_in_delta 1.0, entropy_ratio(@random), 1E-3
   end
 end
