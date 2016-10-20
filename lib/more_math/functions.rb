@@ -1,4 +1,5 @@
 require 'more_math'
+require 'more_math/entropy'
 
 module MoreMath
   module Functions
@@ -186,5 +187,7 @@ module MoreMath
     def stringify_number(number, alphabet = 'a'..'z')
       NumberifyStringFunction.stringify_number(number, alphabet)
     end
+
+    include Entropy
   end
 end
