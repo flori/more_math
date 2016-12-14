@@ -35,9 +35,9 @@ module MoreMath
     # edge. +width+ is usually an integer number representing the width of a
     # histogram bar.
     def prepare_display(width)
-      r = @result.reverse
-      factor = width.to_f / (r.transpose[1].max)
-      r.map { |l, c, r| [ l, (c * factor).round, r ] }
+      reversed = @result.reverse
+      factor = width.to_f / (reversed.transpose[1].max)
+      reversed.map! { |l, c, r| [ l, (c * factor).round, r ] }
     end
 
     # Computes the histogram and returns it as an array of tuples (l, c, r).
