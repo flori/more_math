@@ -15,6 +15,7 @@ GemHadar do
   readme      'README.rdoc'
   title       "#{name.camelize} -- More Math in Ruby"
 
+  required_ruby_version '>= 2.0'
   dependency  'tins', '~>1.0'
   dependency  'mize'
   development_dependency 'rake'
