@@ -3,6 +3,8 @@ require 'more_math'
 module MoreMath
   # A histogram gives an overview of a sequence's elements.
   class Histogram
+    Bin = Struct.new(:left, :right, :count)
+
     # Create a Histogram for the elements of +sequence+ with +bins+ bins.
     def initialize(sequence, bins = 10)
       @sequence = sequence
@@ -13,9 +15,17 @@ module MoreMath
     # Number of bins for this Histogram.
     attr_reader :bins
 
-    # Return the computed histogram as an array of arrays.
+    # Return the computed histogram as an array of Bin objects.
     def to_a
       @result
+    end
+
+    def each_bin(&block)
+      @result.each(&block)
+    end
+
+    def counts
+      each_bin.map(&:count)
     end
 
     # Display this histogram to +output+, +width+ is the parameter for
@@ -30,7 +40,7 @@ module MoreMath
     end
 
     def max_count
-      @result.transpose[1].max
+      counts.max
     end
 
     private
@@ -41,7 +51,7 @@ module MoreMath
     # histogram bar.
     def prepare_display(width)
       factor = width.to_f / max_count
-      @result.reverse_each.map { |l, c, r| [ l, (c * factor).round, r ] }
+      @result.reverse_each.map { |bin| [ bin.left, (bin.count * factor).round, bin.right ] }
     end
 
     # Computes the histogram and returns it as an array of tuples (l, c, r).
@@ -59,7 +69,7 @@ module MoreMath
           x > last_r and (x <= r || i == bins - 1) and c += 1
         end
         last_r = r
-        [ l, c, r ]
+        Bin.new(l, r, c)
       end
     end
   end

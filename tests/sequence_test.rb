@@ -183,7 +183,7 @@ class SequenceTest < Test::Unit::TestCase
     assert_in_delta 0.3, @flat.percentile(25), 1E-8
     assert_in_delta 0.3, @flat.median, 1E-8
     assert_in_delta 0.3, @flat.percentile(75), 1E-8
-    assert_equal 100, @flat.histogram(10).to_a.first[1]
+    assert_equal 100, @flat.histogram(10).each_bin.first.count
     assert @flat.linear_regression.residues.all? { |r| r.abs <= 1E-6 }
   end
 
@@ -201,7 +201,7 @@ class SequenceTest < Test::Unit::TestCase
     assert_in_delta 12.125, @half.percentile(25), 1E-8
     assert_in_delta 24.75, @half.median, 1E-8
     assert_in_delta 37.375, @half.percentile(75), 1E-8
-    assert_equal [10] * 10, counts = @half.histogram(10).to_a.transpose[1]
+    assert_equal [10] * 10, counts = @half.histogram(10).counts
     assert_equal 100, counts.inject { |s, x| s + x }
     assert @half.linear_regression.residues.all? { |r| r.abs <= 0.5 }
   end
@@ -232,7 +232,7 @@ class SequenceTest < Test::Unit::TestCase
     assert_nil @rand.detect_outliers
     assert !@rand.detect_autocorrelation[:detected]
     assert_equal [11, 14, 7, 9, 8, 7, 5, 11, 13, 15],
-      counts = @rand.histogram(10).to_a.transpose[1]
+      counts = @rand.histogram(10).counts
     assert_equal 100, counts.inject { |s, x| s + x }
   end
 
@@ -255,7 +255,7 @@ class SequenceTest < Test::Unit::TestCase
     assert_equal 13, @rasi.detect_outliers[:high]
     assert @rasi.detect_autocorrelation[:detected]
     assert_equal [4, 6, 11, 13, 22, 15, 12, 4, 7, 6],
-      counts = @rasi.histogram(10).to_a.transpose[1]
+      counts = @rasi.histogram(10).counts
     assert_equal 100, counts.inject { |s, x| s + x }
   end
 
@@ -285,7 +285,7 @@ class SequenceTest < Test::Unit::TestCase
     end
     assert @book.detect_autocorrelation(10)[:detected]
     assert_equal [3, 4, 9, 12, 18, 14, 4, 5, 0, 1],
-      counts = @book.histogram(10).to_a.transpose[1]
+      counts = @book.histogram(10).counts
     assert_equal 70, counts.inject { |s, x| s + x }
     assert @flat.linear_regression.residues.all? { |r| r.abs <= 1E-6 }
   end

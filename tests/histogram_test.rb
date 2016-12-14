@@ -10,8 +10,8 @@ class HistogramTest < Test::Unit::TestCase
   def test_histogram
     sequence = Sequence.new [ 1, 2, 3, 0, 2 ]
     histogram = Histogram.new sequence, 3
-    assert_equal [ [0.0, 2, 1.0], [1.0, 2, 2.0], [2.0, 1, 3.0] ],
-      histogram.to_a
+    assert_equal [ [0.0, 1.0, 2], [1.0, 2.0, 2], [2.0, 3.0, 1] ],
+      histogram.each_bin.map(&:to_a)
   end
 
   def test_histogram_display
