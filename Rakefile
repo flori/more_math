@@ -16,6 +16,7 @@ GemHadar do
   title       "#{name.camelize} -- More Math in Ruby"
 
   dependency  'tins', '~>1.0'
+  dependency  'mize'
   development_dependency 'rake'
   development_dependency 'simplecov'
   development_dependency 'test-unit'

@@ -23,7 +23,7 @@ class HistogramTest < Test::Unit::TestCase
     histogram.display output
     output_expected =
       "    2.50000 -|*************************\n    1.50000 -|*******************************"\
-      "*******************\n    0.50000 -|**************************************************\n"
+      "*******************\n    0.50000 -|**************************************************\nmax_count=2\n"
     assert_equal output_expected, output.string
   end
 end

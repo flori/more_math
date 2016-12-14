@@ -1,5 +1,4 @@
 require 'more_math'
-require 'tins/memoize'
 
 module MoreMath
   module NumberifyStringFunction
@@ -42,6 +41,7 @@ module MoreMath
     end
 
     class << self
+      memoize function:
       def compute_size(n, b)
         i = 0
         while n > 0
@@ -50,7 +50,6 @@ module MoreMath
         end
         i
       end
-      memoize_function :compute_size
 
       def convert_alphabet(alphabet)
         if alphabet.respond_to?(:to_ary)

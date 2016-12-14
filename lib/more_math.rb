@@ -2,7 +2,7 @@ module MoreMath
   unless defined?(::MoreMath::Infinity) == 'constant'
     Infinity = 1.0 / 0      # Refers to floating point infinity.
   end
-
+  require 'mize'
   require 'more_math/cantor_pairing_function'
   require 'more_math/constants/functions_constants'
   require 'more_math/continued_fraction'

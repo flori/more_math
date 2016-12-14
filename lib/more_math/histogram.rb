@@ -25,7 +25,12 @@ module MoreMath
       for l, bar, r in d
         output << "%11.5f -|%s\n" % [ (l + r) / 2.0, "*" * bar ]
       end
+      output << "max_count=#{max_count}\n"
       self
+    end
+
+    def max_count
+      @result.transpose[1].max
     end
 
     private
@@ -35,9 +40,8 @@ module MoreMath
     # edge. +width+ is usually an integer number representing the width of a
     # histogram bar.
     def prepare_display(width)
-      reversed = @result.reverse
-      factor = width.to_f / (reversed.transpose[1].max)
-      reversed.map! { |l, c, r| [ l, (c * factor).round, r ] }
+      factor = width.to_f / max_count
+      @result.reverse_each.map { |l, c, r| [ l, (c * factor).round, r ] }
     end
 
     # Computes the histogram and returns it as an array of tuples (l, c, r).

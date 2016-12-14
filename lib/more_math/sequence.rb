@@ -1,5 +1,4 @@
 require 'more_math'
-require 'tins/memoize'
 require 'more_math/sequence/moving_average'
 require 'more_math/sequence/refinement'
 
@@ -34,7 +33,7 @@ module MoreMath
 
     # Reset all memoized values of this sequence.
     def reset
-      self.class.memoize_cache_clear
+      self.class.mize_cache_clear
       self
     end
 
@@ -52,66 +51,67 @@ module MoreMath
     alias << push
 
     # Returns the variance of the elements.
+    memoize method:
     def variance
       sum_of_squares / size
     end
-    memoize_method :variance
 
     # Returns the sample_variance of the elements.
+    memoize method:
     def sample_variance
       size > 1 ? sum_of_squares / (size - 1.0) : 0.0
     end
-    memoize_method :sample_variance
 
     # Returns the sum of squares (the sum of the squared deviations) of the
     # elements.
+    memoize method:
     def sum_of_squares
       @elements.inject(0.0) { |s, t| s + (t - arithmetic_mean) ** 2 }
     end
-    memoize_method :sum_of_squares
 
     # Returns the standard deviation of the elements.
+    memoize method:
     def standard_deviation
       Math.sqrt(variance)
     end
-    memoize_method :standard_deviation
 
     # Returns the standard deviation of the elements in percentage of the
     # arithmetic mean.
+    memoize method:
     def standard_deviation_percentage
       100.0 * standard_deviation / arithmetic_mean
     end
-    memoize_method :standard_deviation_percentage
 
     # Returns the sample standard deviation of the elements.
+    memoize method:
     def sample_standard_deviation
       Math.sqrt(sample_variance)
     end
-    memoize_method :sample_standard_deviation
 
     # Returns the sample standard deviation of the elements in percentage
     # of the arithmetic mean.
+    memoize method:
     def sample_standard_deviation_percentage
       100.0 * sample_standard_deviation / arithmetic_mean
     end
-    memoize_method :sample_standard_deviation_percentage
 
     # Returns the sum of all elements.
+    memoize method:
     def sum
       @elements.inject(0.0) { |s, t| s + t }
     end
-    memoize_method :sum
 
     # Returns the arithmetic mean of the elements.
+    memoize method:
     def arithmetic_mean
       sum / size
     end
-    memoize_method :arithmetic_mean
 
     alias mean arithmetic_mean
 
     # Returns the harmonic mean of the elements. If any of the elements
     # is less than or equal to 0.0, this method returns NaN.
+    memoize method:
     def harmonic_mean
       sum = @elements.inject(0.0) { |s, t|
         if t > 0
@@ -122,10 +122,10 @@ module MoreMath
       }
       sum ? size / sum : 0 / 0.0
     end
-    memoize_method :harmonic_mean
 
     # Returns the geometric mean of the elements. If any of the
     # elements is less than 0.0, this method returns NaN.
+    memoize method:
     def geometric_mean
       sum = @elements.inject(0.0) { |s, t|
         case
@@ -146,25 +146,24 @@ module MoreMath
         0 / 0.0
       end
     end
-    memoize_method :geometric_mean
 
     # Returns the minimum of the elements.
+    memoize method:
     def min
       @elements.min
     end
-    memoize_method :min
 
     # Returns the maximum of the elements.
+    memoize method:
     def max
       @elements.max
     end
-    memoize_method :max
 
     # Return a sorted array of the elements.
+    memoize method:
     def sorted
       @elements.sort
     end
-    memoize_method :sorted
 
     # Returns the +p+-percentile of the elements.
     # There are many methods to compute the percentile, this method uses the
@@ -362,10 +361,10 @@ module MoreMath
 
     # Returns the LinearRegression object for the equation a * x + b which
     # represents the line computed by the linear regression algorithm.
+    memoize method:
     def linear_regression
       LinearRegression.new @elements
     end
-    memoize_method :linear_regression
 
     # Returns a Histogram instance with +bins+ as the number of bins for this
     # analysis' elements.
