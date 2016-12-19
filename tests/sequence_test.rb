@@ -176,7 +176,9 @@ class SequenceTest < Test::Unit::TestCase
     assert_in_delta 0.3, @flat.harmonic_mean, 1E-8
     assert_in_delta 0, @flat.variance, 1E-8
     assert_in_delta 0, @flat.standard_deviation, 1E-8
+    assert_in_delta 0, @flat.standard_deviation_percentage, 1E-8
     assert_in_delta 0, @flat.sample_standard_deviation, 1E-8
+    assert_in_delta 0, @flat.sample_standard_deviation_percentage, 1E-8
     assert_in_delta 30, @flat.sum, 1E-8
     assert_in_delta 0.3, @flat.min, 1E-8
     assert_in_delta 0.3, @flat.max, 1E-8
@@ -194,7 +196,9 @@ class SequenceTest < Test::Unit::TestCase
     assert_equal 'NaN', @half.harmonic_mean.to_s
     assert_in_delta 208.31, @half.variance, 1E-2
     assert_in_delta 14.43, @half.standard_deviation, 1E-2
+    assert_in_delta 58.31, @half.standard_deviation_percentage, 1E-2
     assert_in_delta 14.50, @half.sample_standard_deviation, 1E-2
+    assert_in_delta 58.60, @half.sample_standard_deviation_percentage, 1E-2
     assert_in_delta 2475, @half.sum, 1E-8
     assert_in_delta 0, @half.min, 1E-8
     assert_in_delta 99 / 2.0, @half.max, 1E-8
@@ -213,7 +217,9 @@ class SequenceTest < Test::Unit::TestCase
     assert_equal 'NaN', @rand.harmonic_mean.to_s
     assert_in_delta 976.95, @rand.variance, 1E-2
     assert_in_delta 31.25, @rand.standard_deviation, 1E-2
+    assert_in_delta 61.47, @rand.standard_deviation_percentage, 1E-2
     assert_in_delta 31.41, @rand.sample_standard_deviation, 1E-2
+    assert_in_delta 61.78, @rand.sample_standard_deviation_percentage, 1E-2
     assert_in_delta 5084, @rand.sum, 1E-8
     assert_in_delta 0, @rand.min, 1E-8
     assert_in_delta 98, @rand.max, 1E-8
@@ -243,7 +249,9 @@ class SequenceTest < Test::Unit::TestCase
     assert_equal 'NaN', @rasi.harmonic_mean.to_s
     assert_in_delta 1604.67, @rasi.variance, 1E-2
     assert_in_delta 40.05, @rasi.standard_deviation, 1E-2
+    assert_in_delta 1151.07, @rasi.standard_deviation_percentage, 1E-2
     assert_in_delta 40.26, @rasi.sample_standard_deviation, 1E-2
+    assert_in_delta 1156.87, @rasi.sample_standard_deviation_percentage, 1E-2
     assert_in_delta 348.007, @rasi.sum, 1E-3
     assert_in_delta 92.81, @rasi.max, 1E-2
     assert_in_delta(-20.75, @rasi.percentile(25), 1E-2)
@@ -266,7 +274,9 @@ class SequenceTest < Test::Unit::TestCase
     assert_in_delta 47.98, @book.harmonic_mean, 1E-2
     assert_in_delta 148.36, @book.variance, 1E-2
     assert_in_delta 12.18, @book.standard_deviation, 1E-2
+    assert_in_delta 23.76, @book.standard_deviation_percentage, 1E-2
     assert_in_delta 12.26, @book.sample_standard_deviation, 1E-2
+    assert_in_delta 23.93, @book.sample_standard_deviation_percentage, 1E-2
     assert_in_delta 3588.0, @book.sum, 1E-2
     assert_in_delta 23, @book.min, 1E-2
     assert_in_delta 89, @book.max, 1E-2
