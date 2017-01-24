@@ -1,4 +1,3 @@
-require 'more_math'
 require 'more_math/functions'
 require 'more_math/constants/functions_constants'
 

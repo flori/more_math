@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib".freeze]
   s.authors = ["Florian Frank".freeze]
-  s.date = "2016-12-14"
+  s.date = "2017-01-24"
   s.description = "Library that provides more mathematical functions/algorithms than standard Ruby.".freeze
   s.email = "flori@ping.de".freeze
   s.extra_rdoc_files = ["README.rdoc".freeze, "lib/more_math.rb".freeze, "lib/more_math/cantor_pairing_function.rb".freeze, "lib/more_math/constants/functions_constants.rb".freeze, "lib/more_math/continued_fraction.rb".freeze, "lib/more_math/distributions.rb".freeze, "lib/more_math/entropy.rb".freeze, "lib/more_math/exceptions.rb".freeze, "lib/more_math/functions.rb".freeze, "lib/more_math/histogram.rb".freeze, "lib/more_math/linear_regression.rb".freeze, "lib/more_math/newton_bisection.rb".freeze, "lib/more_math/numberify_string_function.rb".freeze, "lib/more_math/permutation.rb".freeze, "lib/more_math/ranking_common.rb".freeze, "lib/more_math/sequence.rb".freeze, "lib/more_math/sequence/moving_average.rb".freeze, "lib/more_math/sequence/refinement.rb".freeze, "lib/more_math/string_numeral.rb".freeze, "lib/more_math/subset.rb".freeze, "lib/more_math/version.rb".freeze]
@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rake>.freeze, [">= 0"])
       s.add_development_dependency(%q<simplecov>.freeze, [">= 0"])
       s.add_development_dependency(%q<test-unit>.freeze, [">= 0"])
+      s.add_development_dependency(%q<codeclimate-test-reporter>.freeze, [">= 0"])
       s.add_runtime_dependency(%q<tins>.freeze, ["~> 1.0"])
       s.add_runtime_dependency(%q<mize>.freeze, [">= 0"])
     else
@@ -35,6 +36,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<rake>.freeze, [">= 0"])
       s.add_dependency(%q<simplecov>.freeze, [">= 0"])
       s.add_dependency(%q<test-unit>.freeze, [">= 0"])
+      s.add_dependency(%q<codeclimate-test-reporter>.freeze, [">= 0"])
       s.add_dependency(%q<tins>.freeze, ["~> 1.0"])
       s.add_dependency(%q<mize>.freeze, [">= 0"])
     end
@@ -43,6 +45,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rake>.freeze, [">= 0"])
     s.add_dependency(%q<simplecov>.freeze, [">= 0"])
     s.add_dependency(%q<test-unit>.freeze, [">= 0"])
+    s.add_dependency(%q<codeclimate-test-reporter>.freeze, [">= 0"])
     s.add_dependency(%q<tins>.freeze, ["~> 1.0"])
     s.add_dependency(%q<mize>.freeze, [">= 0"])
   end

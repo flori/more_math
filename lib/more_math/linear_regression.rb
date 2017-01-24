@@ -1,5 +1,3 @@
-require 'more_math'
-
 module MoreMath
   # This class computes a linear regression for the given image and domain data
   # sets.

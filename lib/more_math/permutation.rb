@@ -129,7 +129,7 @@ module MoreMath
     #  # => #<Permutation:0x6ae34 @last=719, @rank=312, @size=6>
     #  perm.project("abcdef")
     #  # => "ceabdf"
-    def project(data = @collection)
+    def project(data = (@collection if defined? @collection))
       data or raise ArgumentError, "a collection is required to project"
       raise ArgumentError, "data size is != #{size}!" if data.size != size
       projection = data.clone

@@ -1,4 +1,3 @@
-require 'more_math'
 require 'more_math/sequence/moving_average'
 require 'more_math/sequence/refinement'
 
@@ -233,6 +232,7 @@ module MoreMath
       signal = arithmetic_mean - other.arithmetic_mean
       noise = common_standard_deviation(other) *
         Math.sqrt(size ** -1 + size ** -1)
+      signal / noise
     rescue Errno::EDOM
       0.0
     end

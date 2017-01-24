@@ -1,5 +1,4 @@
 require 'more_math/exceptions'
-require 'more_math'
 
 module MoreMath
   # This class is used to find the root of a function with Newton's bisection

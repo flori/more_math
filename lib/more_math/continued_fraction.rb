@@ -1,5 +1,3 @@
-require 'more_math'
-
 module MoreMath
   # This class implements a continued fraction of the form:
   #

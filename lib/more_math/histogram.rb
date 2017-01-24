@@ -1,5 +1,3 @@
-require 'more_math'
-
 module MoreMath
   # A histogram gives an overview of a sequence's elements.
   class Histogram

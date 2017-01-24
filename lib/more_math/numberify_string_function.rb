@@ -1,5 +1,3 @@
-require 'more_math'
-
 module MoreMath
   module NumberifyStringFunction
     Functions = MoreMath::Functions

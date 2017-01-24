@@ -1,4 +1,3 @@
-require 'more_math'
 require 'more_math/entropy'
 
 module MoreMath
