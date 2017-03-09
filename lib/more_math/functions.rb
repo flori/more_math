@@ -51,13 +51,13 @@ module MoreMath
       when x > (a + 1) / (a + b + 2)
         1 - beta_regularized(1 - x, b, a, epsilon, max_iterations)
       else
-        fraction = ContinuedFraction.for_b do |n, x|
+        fraction = ContinuedFraction.for_b do |n, y|
           if n % 2 == 0
             m = n / 2.0
-            (m * (b - m) * x) / ((a + (2 * m) - 1) * (a + (2 * m)))
+            (m * (b - m) * y) / ((a + (2 * m) - 1) * (a + (2 * m)))
           else
             m = (n - 1) / 2.0
-            -((a + m) * (a + b + m) * x) / ((a + 2 * m) * (a + 2 * m + 1))
+            -((a + m) * (a + b + m) * y) / ((a + 2 * m) * (a + 2 * m + 1))
           end
         end
         exp(a * log(x) + b * log(1.0 - x) - log(a) - log_beta(a, b)) /
@@ -111,9 +111,9 @@ module MoreMath
       when a > x || a < 1
         1 - gammaP_regularized(x, a, epsilon, max_iterations)
       else
-        fraction = ContinuedFraction.for_a do |n, x|
-          (2 * n + 1) - a + x
-        end.for_b do |n, x|
+        fraction = ContinuedFraction.for_a do |n, y|
+          (2 * n + 1) - a + y
+        end.for_b do |n, y|
           n * (a - n)
         end
         exp(-x + a * log(x) - log_gamma(a)) *
