@@ -1,3 +1,5 @@
+2017-07-04 (0.3.3)
+ * Add SPDX short identifier of license to gemspec file.
 2012-10-31 (0.1.0)
  * Included the Permutation features identity, power, and from_mapping
    contributed by Pramukta Kumar <prak@mac.com>
