@@ -289,7 +289,7 @@ module MoreMath
     # Returns the d-value for the Durbin-Watson statistic. The value is d << 2
     # for positive, d >> 2 for negative and d around 2 for no autocorrelation.
     def durbin_watson_statistic
-      e = linear_regression.residues
+      e = linear_regression.residuals
       e.size <= 1 and return 2.0
       (1...e.size).inject(0.0) { |s, i| s + (e[i] - e[i - 1]) ** 2 } /
         e.inject(0.0) { |s, x| s + x ** 2 }

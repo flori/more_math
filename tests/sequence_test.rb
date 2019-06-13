@@ -126,8 +126,8 @@ class SequenceTest < Test::Unit::TestCase
       3, 94, 5, 79, 11, 16, 0, 90, 81, 42, 64, 76, 92, 25,
       3, 90, 51, 15, 0, 74, 98, 93, 90, 14, 81, 85, 28, 30,
       73, 32, 88])
-    @rand_up = Sequence.new(Array.new(rand.size) { |i| rand[i] * (1 - 4.0 / (i + 1)) })
-    @rand_down = Sequence.new(Array.new(rand.size) { |i| rand[i] * (1 + 4.0 / (i + 1)) })
+    @rand_up = Sequence.new(Array.new(rand.size) { |i| rand[i] + 10 * i })
+    @rand_down = Sequence.new(Array.new(rand.size) { |i| rand[i] - 10 * i })
     @rasi = Sequence.new(
       [ 0.0, 11.7813239550446, 23.8742291678261, 0.368124552684678,
       20.233654312272, 7.64120827980215, 61.609239533582, 69.346191849821,
@@ -186,7 +186,8 @@ class SequenceTest < Test::Unit::TestCase
     assert_in_delta 0.3, @flat.median, 1E-8
     assert_in_delta 0.3, @flat.percentile(75), 1E-8
     assert_equal 100, @flat.histogram(10).each_bin.first.count
-    assert @flat.linear_regression.residues.all? { |r| r.abs <= 1E-6 }
+    assert @flat.linear_regression.residuals.all? { |r| r.abs <= 1E-6 }
+    assert_in_delta 0.0, @flat.linear_regression.r2, 1E-8
   end
 
   def test_half
@@ -207,7 +208,8 @@ class SequenceTest < Test::Unit::TestCase
     assert_in_delta 37.375, @half.percentile(75), 1E-8
     assert_equal [10] * 10, counts = @half.histogram(10).counts
     assert_equal 100, counts.inject { |s, x| s + x }
-    assert @half.linear_regression.residues.all? { |r| r.abs <= 0.5 }
+    assert @half.linear_regression.residuals.all? { |r| r.abs <= 0.5 }
+    assert_in_delta 1.0, @half.linear_regression.r2, 1E-8
   end
 
   def test_rand
@@ -227,13 +229,15 @@ class SequenceTest < Test::Unit::TestCase
     assert_in_delta 50.0, @rand.median, 1E-8
     assert_in_delta 81, @rand.percentile(75), 1E-8
     assert_in_delta 0.05660, @rand.linear_regression.a, 1E-4
-    assert_in_delta 47.9812, @rand.linear_regression.b, 1E-4
+    assert_in_delta 48.0378, @rand.linear_regression.b, 1E-4
     assert @rand.linear_regression.slope_zero?
-    assert_in_delta(-0.4019, @rand_down.linear_regression.a, 1E-4)
-    assert_in_delta 82.7303, @rand_down.linear_regression.b, 1E-4
+    assert_in_delta(-9.9433, @rand_down.linear_regression.a, 1E-4)
+    assert_in_delta 48.0378, @rand_down.linear_regression.b, 1E-4
+    assert_in_delta 0.9883, @rand_down.linear_regression.r2, 1E-4
     assert !@rand_down.linear_regression.slope_zero?
-    assert_in_delta 0.5151, @rand_up.linear_regression.a, 1E-4
-    assert_in_delta(13.2320, @rand_up.linear_regression.b, 1E-4)
+    assert_in_delta 10.0566, @rand_up.linear_regression.a, 1E-4
+    assert_in_delta 48.0378, @rand_up.linear_regression.b, 1E-4
+    assert_in_delta 0.98857, @rand_up.linear_regression.r2, 1E-4
     assert !@rand_up.linear_regression.slope_zero?
     assert_nil @rand.detect_outliers
     assert !@rand.detect_autocorrelation[:detected]
@@ -258,7 +262,8 @@ class SequenceTest < Test::Unit::TestCase
     assert_in_delta 0.0, @rasi.median, 1E-2
     assert_in_delta 30.58, @rasi.percentile(75), 1E-2
     assert_in_delta(-0.41, @rasi.linear_regression.a, 1E-2)
-    assert_in_delta(24.35, @rasi.linear_regression.b, 1E-2)
+    assert_in_delta(23.94, @rasi.linear_regression.b, 1E-2)
+    assert_in_delta 0.0887, @rasi.linear_regression.r2, 1E-4
     assert !@rasi.linear_regression.slope_zero?
     assert_equal 13, @rasi.detect_outliers[:high]
     assert @rasi.detect_autocorrelation[:detected]
@@ -284,8 +289,9 @@ class SequenceTest < Test::Unit::TestCase
     assert_in_delta 51.5, @book.median, 1E-2
     assert_in_delta 58.25, @book.percentile(75), 1E-2
     assert_in_delta(-0.0952, @book.linear_regression.a, 1E-4)
-    assert_in_delta(54.6372, @book.linear_regression.b, 1E-4)
+    assert_in_delta(54.5420, @book.linear_regression.b, 1E-4)
     assert @book.linear_regression.slope_zero?
+    assert_in_delta 0.0249, @book.linear_regression.r2, 1E-4
     assert_equal 7, @book.detect_outliers[:high]
     ought = [1.0, -0.39, 0.3, -0.17, 0.07, -0.10, 0.05, 0.04, -0.04, -0.01,
       0.01, 0.11, -0.07, 0.15, 0.04, -0.01
@@ -297,7 +303,7 @@ class SequenceTest < Test::Unit::TestCase
     assert_equal [3, 4, 9, 12, 18, 14, 4, 5, 0, 1],
       counts = @book.histogram(10).counts
     assert_equal 70, counts.inject { |s, x| s + x }
-    assert @flat.linear_regression.residues.all? { |r| r.abs <= 1E-6 }
+    assert @flat.linear_regression.residuals.all? { |r| r.abs <= 1E-6 }
   end
 
   def test_cover

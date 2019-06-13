@@ -32,14 +32,23 @@ module MoreMath
       t.abs <= td.inverse_probability(1 - alpha.abs / 2.0).abs
     end
 
-    # Returns the residues of this linear regression in relation to the given
+    # Returns the residuals of this linear regression in relation to the given
     # domain and image.
-    def residues
+    def residuals
       result = []
       @domain.zip(@image) do |x, y|
         result << y - (@a * x + @b)
       end
       result
+    end
+
+    def r2
+      image_seq = MoreMath::Sequence.new(@image)
+      sum_res   = residuals.inject(0.0) { |s, r| s + r ** 2 }
+      [
+        1.0 -  sum_res / image_seq.sum_of_squares,
+        0.0,
+      ].max
     end
 
     private
@@ -48,7 +57,6 @@ module MoreMath
       size = @image.size
       sum_xx = sum_xy = sum_x = sum_y = 0.0
       @domain.zip(@image) do |x, y|
-        x += 1
         sum_xx += x ** 2
         sum_xy += x * y
         sum_x += x
