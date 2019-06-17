@@ -74,6 +74,12 @@ module MoreMath
       Math.sqrt(variance)
     end
 
+    # Returns the Z-score sequence derived from the current sequence.
+    memoize method:
+    def z_score
+      self.class.new(elements.map { |t| t.to_f - mean / standard_deviation })
+    end
+
     # Returns the standard deviation of the elements in percentage of the
     # arithmetic mean.
     memoize method:

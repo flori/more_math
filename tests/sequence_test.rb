@@ -344,4 +344,16 @@ class SequenceTest < Test::Unit::TestCase
     assert_not_same seq2, seq
     assert_equal [ 1, 2, 3 ], seq2.elements
   end
+
+  def test_z_score
+    s = MoreMath::Sequence.new(
+      [
+        697.195, 913.583, 793.187, 363.926, 111.559, 296.687, 500.225,
+        303.019, 4.702, 378.132,
+      ]
+    )
+    assert_equal s.size, s.z_score.size
+    assert_in_delta 276.57, s.z_score.standard_deviation, 1E-2
+    assert_in_delta 434.64, s.z_score.mean, 1E-2
+  end
 end
