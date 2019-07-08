@@ -15,6 +15,7 @@ module MoreMath
       end
     else
       def log_gamma(x)
+        x = x.to_f
         if x.nan? || x <= 0
           0 / 0.0
         else
