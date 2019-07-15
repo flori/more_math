@@ -131,9 +131,11 @@ module MoreMath
         r = sqrt(1 - exp(-x ** 2 * (4 / Math::PI + erf_a * x ** 2) / (1 + erf_a * x ** 2)))
         x < 0 ? -r : r
       end
-    else
-      def erf(x)
-        Math.erf(x)
+    end
+
+    unless Math.respond_to?(:erfc)
+      def erfc(x)
+        1.0 - erf(x)
       end
     end
 
