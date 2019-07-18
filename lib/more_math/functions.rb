@@ -34,11 +34,29 @@ module MoreMath
       end
     end
 
+    # Returns the value of the gamma function, extended to a negative domain.
+    def gamma(x)
+      if x < 0.0
+        return PI / (sin(PI * x) * exp(log_gamma(1 - x)))
+      else
+        exp(log_gamma(x))
+      end
+    end
+
     # Returns the natural logarithm of the beta function value for +(a, b)+.
     def log_beta(a, b)
       log_gamma(a) + log_gamma(b) - log_gamma(a + b)
     rescue Errno::ERANGE, Errno::EDOM
       0 / 0.0
+    end
+
+    # Returns the value of the beta function for +(a, b)+, +a > 0, b > 0'.
+    def beta(a, b)
+      if a > 0 && b > 0
+        exp(log_beta(a, b))
+      else
+        0.0 / 0
+      end
     end
 
     # Return an approximation value of Euler's regularized beta function for
