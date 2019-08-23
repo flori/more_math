@@ -21,6 +21,6 @@ GemHadar do
   development_dependency 'rake'
   development_dependency 'simplecov'
   development_dependency 'test-unit'
-  development_dependency "codeclimate-test-reporter"
+  development_dependency 'codecov'
   licenses << 'MIT'
 end
