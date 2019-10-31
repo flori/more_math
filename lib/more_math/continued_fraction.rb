@@ -88,7 +88,7 @@ module MoreMath
     include Enumerable
     def each(&block)
       if simple?
-        (0..).lazy.map { |i| @a[i] }.take_while { |x| x }.each(&block)
+        (0..Float::INFINITY).lazy.map { |i| @a[i] }.take_while { |x| x }.each(&block)
       end
     end
 
