@@ -62,13 +62,13 @@ module MoreMath
     # Return an approximation value of Euler's regularized beta function for
     # +x+, +a+, and +b+ with an error <= +epsilon+, but only iterate
     # +max_iterations+-times.
-    def beta_regularized(x, a, b, epsilon = 1E-16, max_iterations = 1 << 16)
+    def beta_regularized(x, a, b, epsilon: 1E-16, max_iterations: 1 << 16)
       x, a, b = x.to_f, a.to_f, b.to_f
       case
       when a.nan? || b.nan? || x.nan? || a <= 0 || b <= 0 || x < 0 || x > 1
         0 / 0.0
       when x > (a + 1) / (a + b + 2)
-        1 - beta_regularized(1 - x, b, a, epsilon, max_iterations)
+        1 - beta_regularized(1 - x, b, a, epsilon: epsilon, max_iterations: max_iterations)
       else
         fraction = ContinuedFraction.for_b do |n, y|
           if n % 2 == 0
@@ -80,7 +80,7 @@ module MoreMath
           end
         end
         exp(a * log(x) + b * log(1.0 - x) - log(a) - log_beta(a, b)) /
-          fraction[x, epsilon, max_iterations]
+          fraction[x, epsilon: epsilon, max_iterations: max_iterations]
       end
     rescue Errno::ERANGE, Errno::EDOM
       0 / 0.0
@@ -89,7 +89,7 @@ module MoreMath
     # Return an approximation of the regularized gammaP function for +x+ and
     # +a+ with an error of <= +epsilon+, but only iterate
     # +max_iterations+-times.
-    def gammaP_regularized(x, a, epsilon = 1E-16, max_iterations = 1 << 16)
+    def gammaP_regularized(x, a, epsilon: 1E-16, max_iterations: 1 << 16)
       x, a = x.to_f, a.to_f
       case
       when a.nan? || x.nan? || a <= 0 || x < 0
@@ -97,7 +97,7 @@ module MoreMath
       when x == 0
         0.0
       when 1 <= a && a < x
-        1 - gammaQ_regularized(x, a, epsilon, max_iterations)
+        1 - gammaQ_regularized(x, a, epsilon: epsilon, max_iterations: max_iterations)
       else
         n = 0
         an = 1 / a
@@ -120,7 +120,7 @@ module MoreMath
     # Return an approximation of the regularized gammaQ function for +x+ and
     # +a+ with an error of <= +epsilon+, but only iterate
     # +max_iterations+-times.
-    def gammaQ_regularized(x, a, epsilon = 1E-16, max_iterations = 1 << 16)
+    def gammaQ_regularized(x, a, epsilon: 1E-16, max_iterations: 1 << 16)
       x, a = x.to_f, a.to_f
       case
       when a.nan? || x.nan? || a <= 0 || x < 0
@@ -128,7 +128,7 @@ module MoreMath
       when x == 0
         1.0
       when a > x || a < 1
-        1 - gammaP_regularized(x, a, epsilon, max_iterations)
+        1 - gammaP_regularized(x, a, epsilon: epsilon, max_iterations: max_iterations)
       else
         fraction = ContinuedFraction.for_a do |n, y|
           (2 * n + 1) - a + y
@@ -136,7 +136,7 @@ module MoreMath
           n * (a - n)
         end
         exp(-x + a * log(x) - log_gamma(a)) *
-          fraction[x, epsilon, max_iterations] ** -1
+          fraction[x, epsilon: epsilon, max_iterations: max_iterations] ** -1
       end
     rescue Errno::ERANGE, Errno::EDOM
       0 / 0.0

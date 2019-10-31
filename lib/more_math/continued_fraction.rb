@@ -14,11 +14,13 @@ module MoreMath
   #                            ...
   #
   class ContinuedFraction
+    SIMPLE_B = proc { 1 }
+
     # Creates a continued fraction instance. With the defaults for_a { 1 } and
     # for_b { 1 } it approximates the golden ration phi if evaluated.
     def initialize
-      @a = proc { 1.0 }
-      @b = proc { 1.0 }
+      @a = proc { 1 }
+      @b = SIMPLE_B
     end
 
     # Creates a ContinuedFraction instances and passes its arguments to a call
@@ -35,7 +37,7 @@ module MoreMath
 
     def for_arg(arg = nil, &block)
       if arg and !block
-        arg
+        arg.freeze
       elsif block and !arg
         block
       else
@@ -43,6 +45,17 @@ module MoreMath
       end
     end
     private :for_arg
+
+    def self.from(number)
+      number = number.to_r
+      n, d = number.numerator, number.denominator
+      as = []
+      while d > 0
+        n, (a, d) = d, n.divmod(d)
+        as << a
+      end
+      for_a(as)
+    end
 
     # This method either takes a block or an argument +arg+. The argument +arg+
     # has to respond to an integer index n >= 0 and return the value a_n. The
@@ -62,6 +75,30 @@ module MoreMath
     def for_b(arg = nil, &block)
       @b = for_arg(arg, &block)
       self
+    end
+
+    def simple?
+      @b == SIMPLE_B
+    end
+
+    def inspect
+      "#<#{self.class} #{to_s}>"
+    end
+
+    include Enumerable
+    def each(&block)
+      if simple?
+        (0..).lazy.map { |i| @a[i] }.take_while { |x| x }.each(&block)
+      end
+    end
+
+    def to_s(length: 10)
+      if simple?
+        convergents = take(length)
+        "[#{convergents[0]}; #{convergents[1..-1] * ', '}#{",…" if convergents.size >= length}]"
+      else
+        "CF(a=#@a, b=#@b)"
+      end
     end
 
     def value(v, n, x = nil)
@@ -86,7 +123,7 @@ module MoreMath
     # Evaluates the continued fraction for the value +x+ (if any) with the
     # accuracy +epsilon+ and +max_iterations+ as the maximum number of
     # iterations using the Wallis-method with scaling.
-    def call(x = nil, epsilon = 1E-16, max_iterations = 1 << 31)
+    def call(x = nil, epsilon: 1E-16, max_iterations: 1 << 31)
       c_0, c_1 = 1.0, a(0, x)
       c_1 == nil and return 0 / 0.0
       d_0, d_1 = 0.0, 1.0
@@ -127,7 +164,17 @@ module MoreMath
       result
     end
 
+    def reciprocal
+      if @a[0] > 0
+        dup.for_a { |i| i == 0 ? 0 : @a[i - 1] }
+      else
+        dup.for_a { |i| @a[i + 1] }
+      end
+    end
+
     alias [] call
+
+    alias to_f call
 
     # Returns this continued fraction as a Proc object which takes the same
     # arguments like its call method does.
