@@ -17,13 +17,30 @@ class HistogramTest < Test::Unit::TestCase
   def test_histogram_display
     sequence = Sequence.new [ 1, 2, 3, 0, 2 ]
     histogram = Histogram.new sequence, 3
-    assert_equal [[2.0, 25, 3.0], [1.0, 50, 2.0], [0.0, 50, 1.0]],
-      histogram.instance_eval { prepare_display(50) }
+    assert_equal [[2.0, 3.0, 1], [1.0, 2.0, 2], [0.0, 1.0, 2]],
+      histogram.instance_eval { rows }
     output = StringIO.new
     histogram.display output
-    output_expected =
-      "    2.50000 -|*************************\n    1.50000 -|*******************************"\
-      "*******************\n    0.50000 -|**************************************************\nmax_count=2\n"
-    assert_equal output_expected, output.string
+    assert_equal <<~end, output.string
+        2.50000 -|*************************
+        1.50000 -|**************************************************
+        0.50000 -|**************************************************
+    max_count=2
+    end
+  end
+
+  def test_histogram_display_with_counts
+    sequence = Sequence.new [ 1, 2, 3, 0, 2 ]
+    histogram = Histogram.new sequence, with_counts: true, bins: 3
+    assert_equal [[2.0, 3.0, 1], [1.0, 2.0, 2], [0.0, 1.0, 2]],
+      histogram.instance_eval { rows }
+    output = StringIO.new
+    histogram.display output
+    assert_equal <<~end, output.string
+        2.50000 -|************************                         1
+        1.50000 -|************************************************ 2
+        0.50000 -|************************************************ 2
+    max_count=2
+    end
   end
 end

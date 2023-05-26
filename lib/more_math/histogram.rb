@@ -4,7 +4,14 @@ module MoreMath
     Bin = Struct.new(:left, :right, :count)
 
     # Create a Histogram for the elements of +sequence+ with +bins+ bins.
-    def initialize(sequence, bins = 10)
+    def initialize(sequence, arg = 10)
+      @with_counts = false
+      if arg.is_a?(Hash)
+        bins = arg.fetch(:bins, 10)
+        wc = arg[:with_counts] and @with_counts = wc
+      else
+        bins = arg
+      end
       @sequence = sequence
       @bins = bins
       @result = compute
@@ -29,9 +36,8 @@ module MoreMath
     # Display this histogram to +output+, +width+ is the parameter for
     # +prepare_display+
     def display(output = $stdout, width = 50)
-      d = prepare_display(width)
-      for l, bar, r in d
-        output << "%11.5f -|%s\n" % [ (l + r) / 2.0, "*" * bar ]
+      for r in rows
+        output << output_row(r, width)
       end
       output << "max_count=#{max_count}\n"
       self
@@ -43,13 +49,26 @@ module MoreMath
 
     private
 
-    # Returns an array of tuples (l, c, r) where +l+ is the left bin edge, +c+
-    # the +width+-normalized frequence count value, and +r+ the right bin
-    # edge. +width+ is usually an integer number representing the width of a
-    # histogram bar.
-    def prepare_display(width)
-      factor = width.to_f / max_count
-      @result.reverse_each.map { |bin| [ bin.left, (bin.count * factor).round, bin.right ] }
+    def output_row(row, width)
+      left, right, count = row
+      if @with_counts
+        left_width = width - (counts.map { |x| x.to_s.size }.max + 1)
+      else
+        left_width = width
+      end
+      factor    = left_width.to_f / max_count
+      bar_width = (count * factor).ceil
+      bar       = ?* * bar_width
+      if @with_counts
+        bar += count.to_s.rjust(width - bar_width)
+      end
+      "%11.5f -|%s\n" % [ (left + right) / 2.0, bar ]
+    end
+
+    def rows
+      @result.reverse_each.map { |bin|
+        [ bin.left, bin.right, bin.count ]
+      }
     end
 
     # Computes the histogram and returns it as an array of tuples (l, c, r).
