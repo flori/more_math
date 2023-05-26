@@ -12,7 +12,7 @@ GemHadar do
   test_dir    'tests'
   ignore      '.*.sw[pon]', 'pkg', 'Gemfile.lock', 'coverage', '.rvmrc',
     '.AppleDouble', 'tags', '.byebug_history', '.DS_Store'
-  readme      'README.rdoc'
+  readme      'README.md'
   title       "#{name.camelize} -- More Math in Ruby"
   package_ignore '.all_images.yml', '.gitignore', 'VERSION',
     *Dir.glob('.github/**/*', File::FNM_DOTMATCH)
