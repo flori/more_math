@@ -24,5 +24,7 @@ GemHadar do
   development_dependency 'simplecov'
   development_dependency 'test-unit'
   development_dependency "codeclimate-test-reporter"
+  development_dependency 'debug'
+  development_dependency 'all_images'
   licenses << 'MIT'
 end
