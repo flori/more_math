@@ -36,6 +36,7 @@ module MoreMath
     # Display this histogram to +output+, +width+ is the parameter for
     # +prepare_display+
     def display(output = $stdout, width = 50)
+      width >= 1 or raise ArgumentError, "width needs to be >= 1"
       for r in rows
         output << output_row(r, width)
       end
@@ -56,8 +57,11 @@ module MoreMath
       else
         left_width = width
       end
+      if left_width < 0
+        left_width = width
+      end
       factor    = left_width.to_f / max_count
-      bar_width = (count * factor).ceil
+      bar_width = (count * factor).round
       bar       = ?* * bar_width
       if @with_counts
         bar += count.to_s.rjust(width - bar_width)
