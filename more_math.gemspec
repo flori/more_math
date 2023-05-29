@@ -1,14 +1,14 @@
 # -*- encoding: utf-8 -*-
-# stub: more_math 1.0.0 ruby lib
+# stub: more_math 1.0.1 ruby lib
 
 Gem::Specification.new do |s|
   s.name = "more_math".freeze
-  s.version = "1.0.0"
+  s.version = "1.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib".freeze]
   s.authors = ["Florian Frank".freeze]
-  s.date = "2023-05-26"
+  s.date = "2023-05-29"
   s.description = "Library that provides more mathematical functions/algorithms than standard Ruby.".freeze
   s.email = "flori@ping.de".freeze
   s.extra_rdoc_files = ["README.md".freeze, "lib/more_math.rb".freeze, "lib/more_math/cantor_pairing_function.rb".freeze, "lib/more_math/constants/functions_constants.rb".freeze, "lib/more_math/continued_fraction.rb".freeze, "lib/more_math/distributions.rb".freeze, "lib/more_math/entropy.rb".freeze, "lib/more_math/exceptions.rb".freeze, "lib/more_math/functions.rb".freeze, "lib/more_math/histogram.rb".freeze, "lib/more_math/linear_regression.rb".freeze, "lib/more_math/newton_bisection.rb".freeze, "lib/more_math/numberify_string_function.rb".freeze, "lib/more_math/permutation.rb".freeze, "lib/more_math/ranking_common.rb".freeze, "lib/more_math/sequence.rb".freeze, "lib/more_math/sequence/moving_average.rb".freeze, "lib/more_math/sequence/refinement.rb".freeze, "lib/more_math/string_numeral.rb".freeze, "lib/more_math/subset.rb".freeze, "lib/more_math/version.rb".freeze]
