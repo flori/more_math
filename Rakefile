@@ -6,7 +6,7 @@ GemHadar do
   name        'more_math'
   author      'Florian Frank'
   email       'flori@ping.de'
-  homepage    "http://flori.github.com/#{name}"
+  homepage    "https://github.com/flori/#{name}"
   summary     'Library that provides more mathematics.'
   description 'Library that provides more mathematical functions/algorithms than standard Ruby.'
   test_dir    'tests'
