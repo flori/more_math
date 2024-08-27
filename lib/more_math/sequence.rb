@@ -333,6 +333,13 @@ module MoreMath
       end
     end
 
+    # Returns the interquartile range for this sequence.
+    def interquartile_range
+      quartile1 = percentile(25)
+      quartile3 = percentile(75)
+      quartile3 - quartile1
+    end
+
     # Return a result hash with the number of :very_low, :low, :high, and
     # :very_high outliers, determined by the box plotting algorithm run with
     # :median and :iqr parameters. If no outliers were found or the iqr is

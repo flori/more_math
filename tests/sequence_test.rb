@@ -239,6 +239,7 @@ class SequenceTest < Test::Unit::TestCase
     assert_in_delta 48.0378, @rand_up.linear_regression.b, 1E-4
     assert_in_delta 0.98857, @rand_up.linear_regression.r2, 1E-4
     assert !@rand_up.linear_regression.slope_zero?
+    assert_in_delta 60.75, @rand.interquartile_range, 1E-4
     assert_nil @rand.detect_outliers
     assert !@rand.detect_autocorrelation[:detected]
     assert_equal [11, 14, 7, 9, 8, 7, 5, 11, 13, 15],
@@ -265,6 +266,7 @@ class SequenceTest < Test::Unit::TestCase
     assert_in_delta(23.94, @rasi.linear_regression.b, 1E-2)
     assert_in_delta 0.0887, @rasi.linear_regression.r2, 1E-4
     assert !@rasi.linear_regression.slope_zero?
+    assert_in_delta 51.3401, @rasi.interquartile_range, 1E-4
     assert_equal 13, @rasi.detect_outliers[:high]
     assert @rasi.detect_autocorrelation[:detected]
     assert_equal [4, 6, 11, 13, 22, 15, 12, 4, 7, 6],
@@ -292,6 +294,7 @@ class SequenceTest < Test::Unit::TestCase
     assert_in_delta(54.5420, @book.linear_regression.b, 1E-4)
     assert @book.linear_regression.slope_zero?
     assert_in_delta 0.0249, @book.linear_regression.r2, 1E-4
+    assert_in_delta 14.5, @book.interquartile_range, 1E-4
     assert_equal 7, @book.detect_outliers[:high]
     ought = [1.0, -0.39, 0.3, -0.17, 0.07, -0.10, 0.05, 0.04, -0.04, -0.01,
       0.01, 0.11, -0.07, 0.15, 0.04, -0.01
