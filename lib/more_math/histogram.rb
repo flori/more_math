@@ -1,3 +1,5 @@
+require 'tins'
+
 module MoreMath
   # A histogram gives an overview of a sequence's elements.
   class Histogram
@@ -35,13 +37,21 @@ module MoreMath
 
     # Display this histogram to +output+, +width+ is the parameter for
     # +prepare_display+
-    def display(output = $stdout, width = 50)
-      width >= 1 or raise ArgumentError, "width needs to be >= 1"
+    def display(output = $stdout, width = 65)
+      if width.is_a?(String) && width =~ /(.+)%\z/
+        percentage = Float($1).clamp(0, 100)
+        width = (terminal_width * (percentage / 100.0)).floor
+      end
+      width > 15 or raise ArgumentError, "width needs to be >= 15"
       for r in rows
         output << output_row(r, width)
       end
       output << "max_count=#{max_count}\n"
       self
+    end
+
+    def terminal_width
+      Tins::Terminal.columns
     end
 
     def max_count
@@ -79,6 +89,7 @@ module MoreMath
     end
 
     def output_row_with_count(left, right, count, width)
+      width -= 15
       c = utf8? ? 2 : 1
       left_width = width - (counts.map { |x| x.to_s.size }.max + c)
       if left_width < 0
@@ -87,12 +98,13 @@ module MoreMath
       factor    = left_width.to_f / max_count
       bar_width = (count * factor)
       bar = utf8? ? utf8_bar(bar_width) : ascii_bar(bar_width)
-			max_count_length = max_count.to_s.size
+      max_count_length = max_count.to_s.size
       "%11.5f -|%#{-width + max_count_length}s%#{max_count_length}s\n" %
-				[ (left + right) / 2.0, bar, count ]
+        [ (left + right) / 2.0, bar, count ]
     end
 
     def output_row_without_count(left, right, count, width)
+      width -= 15
       left_width = width
       left_width < 0 and left_width = width
       factor    = left_width.to_f / max_count
