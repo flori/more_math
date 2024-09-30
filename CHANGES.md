@@ -1,5 +1,11 @@
 # Changes
 
+## 2024-09-30 v1.2.1
+
+* Refactor histogram display logic for utf8 and ascii bars
+	+ *Improved `utf8_bar` method to handle fractional bar widths.*
+	+ *Updated test case in `histogram_test.rb` to reflect changes.*
+
 ## 2024-09-30 v1.2.0
 
 #### Significant Changes
