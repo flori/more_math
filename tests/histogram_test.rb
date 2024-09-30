@@ -17,6 +17,9 @@ class HistogramTest < Test::Unit::TestCase
   def test_histogram_display
     sequence = Sequence.new [ 1, 2, 3, 0, 2 ]
     histogram = Histogram.new sequence, 3
+    def histogram.utf8?
+      false
+    end
     assert_equal [[2.0, 3.0, 1], [1.0, 2.0, 2], [0.0, 1.0, 2]],
       histogram.instance_eval { rows }
     output = StringIO.new
@@ -32,6 +35,9 @@ class HistogramTest < Test::Unit::TestCase
   def test_histogram_display_with_counts
     sequence = Sequence.new [ 1, 2, 3, 0, 2 ]
     histogram = Histogram.new sequence, with_counts: true, bins: 3
+    def histogram.utf8?
+      false
+    end
     assert_equal [[2.0, 3.0, 1], [1.0, 2.0, 2], [0.0, 1.0, 2]],
       histogram.instance_eval { rows }
     output = StringIO.new
@@ -41,6 +47,40 @@ class HistogramTest < Test::Unit::TestCase
         1.50000 -|************************************************ 2
         0.50000 -|************************************************ 2
     max_count=2
+    end
+  end
+
+  def test_histogram_display_utf8
+    srand 1337
+    sequence = Sequence.new 1000.times.map { rand(10) }
+    histogram = Histogram.new sequence, 3
+    def histogram.utf8?
+      true
+    end
+    output = StringIO.new
+    histogram.display output
+    assert_equal <<~end, output.string
+        7.50000 -|⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+        4.50000 -|⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
+        1.50000 -|⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+    max_count=420
+    end
+  end
+
+  def test_histogram_display_with_counts_utf8
+    srand 1337
+    sequence = Sequence.new 1000.times.map { rand(10) }
+    histogram = Histogram.new sequence, with_counts: true, bins: 3
+    def histogram.utf8?
+      true
+    end
+    output = StringIO.new
+    histogram.display output
+    assert_equal <<~end, output.string
+        7.50000 -|⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇               295
+        4.50000 -|⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇                285
+        1.50000 -|⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿  420
+    max_count=420
     end
   end
 end

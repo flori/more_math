@@ -50,10 +50,26 @@ module MoreMath
 
     private
 
+    def utf8_bar(bar_width)
+      fract = bar_width - bar_width.floor
+      bar   = ?⣿ * bar_width.floor
+      fract > 0.5 and bar << ?⡇
+      bar
+    end
+
+    def ascii_bar(bar_width)
+      bar = ?* * bar_width
+    end
+
+    def utf8?
+      ENV['LANG'] =~ /utf-8\z/i
+    end
+
     def output_row(row, width)
       left, right, count = row
       if @with_counts
-        left_width = width - (counts.map { |x| x.to_s.size }.max + 1)
+        c = utf8? ? 2 : 1
+        left_width = width - (counts.map { |x| x.to_s.size }.max + c)
       else
         left_width = width
       end
@@ -61,8 +77,8 @@ module MoreMath
         left_width = width
       end
       factor    = left_width.to_f / max_count
-      bar_width = (count * factor).round
-      bar       = ?* * bar_width
+      bar_width = (count * factor)
+      bar = utf8? ? utf8_bar(bar_width) : ascii_bar(bar_width)
       if @with_counts
         bar += count.to_s.rjust(width - bar_width)
       end
