@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
-# stub: more_math 1.2.2 ruby lib
+# stub: more_math 1.3.0 ruby lib
 
 Gem::Specification.new do |s|
   s.name = "more_math".freeze
-  s.version = "1.2.2".freeze
+  s.version = "1.3.0".freeze
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib".freeze]
