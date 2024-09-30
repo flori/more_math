@@ -1,5 +1,13 @@
 # Changes
 
+## 2024-09-30 v1.3.0
+
+* **Added support for displaying histograms based on percentage of terminal width**
+	+ Added `terminal_width` method to `Histogram` class
+	+ Updated `display` method to take interpret the `width` parameter as a percentage string, e.g. `75%`
+	+ Updated test cases to use the new `display` method with different widths
+	+ Added a new test case for displaying histograms with counts and `75%` width
+
 ## 2024-09-30 v1.2.2
 
 ### Improvements
