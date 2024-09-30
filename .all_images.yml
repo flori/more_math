@@ -6,7 +6,7 @@ script: &script |-
   echo -e "\e[1m"
   ruby -v
   echo -e "\e[0m"
-  bundle
+  bundle --full-index
   rake test
 
 images:
