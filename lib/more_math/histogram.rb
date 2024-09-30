@@ -53,7 +53,11 @@ module MoreMath
     def utf8_bar(bar_width)
       fract = bar_width - bar_width.floor
       bar   = ?⣿ * bar_width.floor
-      fract > 0.5 and bar << ?⡇
+      if fract > 0.5
+        bar << ?⡇
+      else
+        bar << ' '
+      end
       bar
     end
 
@@ -80,7 +84,15 @@ module MoreMath
       bar_width = (count * factor)
       bar = utf8? ? utf8_bar(bar_width) : ascii_bar(bar_width)
       if @with_counts
-        bar += count.to_s.rjust(width - bar_width)
+        if utf8?
+          if bar[-1] == ' '
+            bar += count.to_s.rjust(width - bar_width - 1)
+          else
+            bar += count.to_s.rjust(width - bar_width)
+          end
+        else
+          bar += count.to_s.rjust(width - bar_width)
+        end
       end
       "%11.5f -|%s\n" % [ (left + right) / 2.0, bar ]
     end
