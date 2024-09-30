@@ -14,7 +14,7 @@ GemHadar do
     '.AppleDouble', 'tags', '.byebug_history', '.DS_Store'
   readme      'README.md'
   title       "#{name.camelize} -- More Math in Ruby"
-  package_ignore '.all_images.yml', '.gitignore', 'VERSION',
+  package_ignore '.all_images.yml', '.gitignore', 'VERSION', '.utilsrc',
     *Dir.glob('.github/**/*', File::FNM_DOTMATCH)
 
   required_ruby_version '>= 2.0'
