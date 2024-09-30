@@ -23,7 +23,7 @@ class HistogramTest < Test::Unit::TestCase
     assert_equal [[2.0, 3.0, 1], [1.0, 2.0, 2], [0.0, 1.0, 2]],
       histogram.instance_eval { rows }
     output = StringIO.new
-    histogram.display output
+    histogram.display output, 65
     assert_equal <<~end, output.string
         2.50000 -|*************************                         
         1.50000 -|**************************************************
@@ -41,7 +41,7 @@ class HistogramTest < Test::Unit::TestCase
     assert_equal [[2.0, 3.0, 1], [1.0, 2.0, 2], [0.0, 1.0, 2]],
       histogram.instance_eval { rows }
     output = StringIO.new
-    histogram.display output
+    histogram.display output, 65
     assert_equal <<~end, output.string
         2.50000 -|************************                         1
         1.50000 -|************************************************ 2
@@ -58,7 +58,7 @@ class HistogramTest < Test::Unit::TestCase
       false
     end
     output = StringIO.new
-    histogram.display output
+    histogram.display output, 65
     assert_equal <<~end, output.string
        67.50000 -|*****                                           81
        40.50000 -|*************                                  206
@@ -75,7 +75,7 @@ class HistogramTest < Test::Unit::TestCase
       true
     end
     output = StringIO.new
-    histogram.display output
+    histogram.display output, 65
     assert_equal <<~end, output.string
         7.50000 -|⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿               
         4.50000 -|⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇                
@@ -92,7 +92,7 @@ class HistogramTest < Test::Unit::TestCase
       true
     end
     output = StringIO.new
-    histogram.display output
+    histogram.display output, 65
     assert_equal <<~end, output.string
         7.50000 -|⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇               295
         4.50000 -|⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇                285
@@ -101,7 +101,7 @@ class HistogramTest < Test::Unit::TestCase
     end
   end
 
-  def test_histogram_display_with_counts_utf8_zero
+  def test_histogram_display_with_counts_utf8_product
     srand 1337
     sequence = Sequence.new 1000.times.map { rand(10) * rand(10) }
     histogram = Histogram.new sequence, with_counts: true, bins: 3
@@ -109,7 +109,7 @@ class HistogramTest < Test::Unit::TestCase
       true
     end
     output = StringIO.new
-    histogram.display output
+    histogram.display output, 65
     assert_equal <<~end, output.string
        67.50000 -|⣿⣿⣿⣿⣿                                           81
        40.50000 -|⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿                                  206
@@ -118,11 +118,31 @@ class HistogramTest < Test::Unit::TestCase
     end
   end
 
+  def test_histogram_display_with_counts_utf8_product_width_75_percent
+    srand 1337
+    sequence = Sequence.new 1000.times.map { rand(10) * rand(10) }
+    histogram = Histogram.new sequence, with_counts: true, bins: 3
+    def histogram.utf8?
+      true
+    end
+    def histogram.terminal_width
+      80
+    end
+    output = StringIO.new
+    histogram.display output, '90%'
+    assert_equal <<~end, output.string
+       67.50000 -|⣿⣿⣿⣿⣿⡇                                                 81
+       40.50000 -|⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿                                       206
+       13.50000 -|⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿  713
+    max_count=713
+    end
+  end
+
   private
 
-  def output_histogram(histogram)
+  def output_histogram(histogram, width = 65)
     $stdout.puts
-    histogram.display $stdout
+    histogram.display $stdout, width
     $stdout.puts
   end
 end
