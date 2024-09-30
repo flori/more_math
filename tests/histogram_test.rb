@@ -25,7 +25,7 @@ class HistogramTest < Test::Unit::TestCase
     output = StringIO.new
     histogram.display output
     assert_equal <<~end, output.string
-        2.50000 -|*************************
+        2.50000 -|*************************                         
         1.50000 -|**************************************************
         0.50000 -|**************************************************
     max_count=2
@@ -50,6 +50,23 @@ class HistogramTest < Test::Unit::TestCase
     end
   end
 
+  def test_histogram_display_with_counts_lots
+    srand 1337
+    sequence = Sequence.new 1000.times.map { rand(10) * rand(10) }
+    histogram = Histogram.new sequence, with_counts: true, bins: 3
+    def histogram.utf8?
+      false
+    end
+    output = StringIO.new
+    histogram.display output
+    assert_equal <<~end, output.string
+       67.50000 -|*****                                           81
+       40.50000 -|*************                                  206
+       13.50000 -|********************************************** 713
+    max_count=713
+    end
+  end
+
   def test_histogram_display_utf8
     srand 1337
     sequence = Sequence.new 1000.times.map { rand(10) }
@@ -60,8 +77,8 @@ class HistogramTest < Test::Unit::TestCase
     output = StringIO.new
     histogram.display output
     assert_equal <<~end, output.string
-        7.50000 -|⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ 
-        4.50000 -|⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
+        7.50000 -|⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿               
+        4.50000 -|⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇                
         1.50000 -|⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ 
     max_count=420
     end
@@ -82,5 +99,30 @@ class HistogramTest < Test::Unit::TestCase
         1.50000 -|⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿  420
     max_count=420
     end
+  end
+
+  def test_histogram_display_with_counts_utf8_zero
+    srand 1337
+    sequence = Sequence.new 1000.times.map { rand(10) * rand(10) }
+    histogram = Histogram.new sequence, with_counts: true, bins: 3
+    def histogram.utf8?
+      true
+    end
+    output = StringIO.new
+    histogram.display output
+    assert_equal <<~end, output.string
+       67.50000 -|⣿⣿⣿⣿⣿                                           81
+       40.50000 -|⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿                                  206
+       13.50000 -|⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿  713
+    max_count=713
+    end
+  end
+
+  private
+
+  def output_histogram(histogram)
+    $stdout.puts
+    histogram.display $stdout
+    $stdout.puts
   end
 end

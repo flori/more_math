@@ -62,7 +62,7 @@ module MoreMath
     end
 
     def ascii_bar(bar_width)
-      bar = ?* * bar_width
+      ?* * bar_width
     end
 
     def utf8?
@@ -72,29 +72,33 @@ module MoreMath
     def output_row(row, width)
       left, right, count = row
       if @with_counts
-        c = utf8? ? 2 : 1
-        left_width = width - (counts.map { |x| x.to_s.size }.max + c)
+        output_row_with_count(left, right, count, width)
       else
-        left_width = width
+        output_row_without_count(left, right, count, width)
       end
+    end
+
+    def output_row_with_count(left, right, count, width)
+      c = utf8? ? 2 : 1
+      left_width = width - (counts.map { |x| x.to_s.size }.max + c)
       if left_width < 0
         left_width = width
       end
       factor    = left_width.to_f / max_count
       bar_width = (count * factor)
       bar = utf8? ? utf8_bar(bar_width) : ascii_bar(bar_width)
-      if @with_counts
-        if utf8?
-          if bar[-1] == ' '
-            bar += count.to_s.rjust(width - bar_width - 1)
-          else
-            bar += count.to_s.rjust(width - bar_width)
-          end
-        else
-          bar += count.to_s.rjust(width - bar_width)
-        end
-      end
-      "%11.5f -|%s\n" % [ (left + right) / 2.0, bar ]
+			max_count_length = max_count.to_s.size
+      "%11.5f -|%#{-width + max_count_length}s%#{max_count_length}s\n" %
+				[ (left + right) / 2.0, bar, count ]
+    end
+
+    def output_row_without_count(left, right, count, width)
+      left_width = width
+      left_width < 0 and left_width = width
+      factor    = left_width.to_f / max_count
+      bar_width = (count * factor)
+      bar = utf8? ? utf8_bar(bar_width) : ascii_bar(bar_width)
+      "%11.5f -|%#{-width}s\n" % [ (left + right) / 2.0, bar ]
     end
 
     def rows
