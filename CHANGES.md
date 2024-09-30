@@ -1,5 +1,14 @@
 # Changes
 
+## 2024-09-30 v1.2.2
+
+### Improvements
+* Refactor Histogram display logic for better UTF-8 support:
+	+ Extracted `output_row_with_count` and `output_row_without_count` methods
+	+ Updated test cases for histogram display with counts and UTF-8 support
+* Update Rakefile to ignore `.utilsrc` file:
+	- Add `.utilsrc` to `package_ignore` list in Rakefile
+
 ## 2024-09-30 v1.2.1
 
 * Refactor histogram display logic for utf8 and ascii bars
