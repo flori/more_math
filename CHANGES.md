@@ -3,47 +3,47 @@
 ## 2024-09-30 v1.3.0
 
 * **Added support for displaying histograms based on percentage of terminal width**
-	+ Added `terminal_width` method to `Histogram` class
-	+ Updated `display` method to take interpret the `width` parameter as a percentage string, e.g. `75%`
-	+ Updated test cases to use the new `display` method with different widths
-	+ Added a new test case for displaying histograms with counts and `75%` width
+  + Added `terminal_width` method to `Histogram` class
+  + Updated `display` method to take interpret the `width` parameter as a percentage string, e.g. `75%`
+  + Updated test cases to use the new `display` method with different widths
+  + Added a new test case for displaying histograms with counts and `75%` width
 
 ## 2024-09-30 v1.2.2
 
 ### Improvements
 * Refactor Histogram display logic for better UTF-8 support:
-	+ Extracted `output_row_with_count` and `output_row_without_count` methods
-	+ Updated test cases for histogram display with counts and UTF-8 support
+  + Extracted `output_row_with_count` and `output_row_without_count` methods
+  + Updated test cases for histogram display with counts and UTF-8 support
 * Update Rakefile to ignore `.utilsrc` file:
-	- Add `.utilsrc` to `package_ignore` list in Rakefile
+  - Add `.utilsrc` to `package_ignore` list in Rakefile
 
 ## 2024-09-30 v1.2.1
 
 * Refactor histogram display logic for utf8 and ascii bars
-	+ *Improved `utf8_bar` method to handle fractional bar widths.*
-	+ *Updated test case in `histogram_test.rb` to reflect changes.*
+  + *Improved `utf8_bar` method to handle fractional bar widths.*
+  + *Updated test case in `histogram_test.rb` to reflect changes.*
 
 ## 2024-09-30 v1.2.0
 
 #### Significant Changes
 
 * Bumped version to **1.2.0**
-	+ Updated `VERSION` in `lib/more_math/version.rb`
-	+ Updated gemspec version and date
-	+ Bumped `gem_hadar` development dependency to **1.18.0**
+  + Updated `VERSION` in `lib/more_math/version.rb`
+  + Updated gemspec version and date
+  + Bumped `gem_hadar` development dependency to **1.18.0**
 * Update Ruby version check in `.all_images.yml`
-	+ Added `--full-index` to `bundle` command
+  + Added `--full-index` to `bundle` command
 * Add UTF-8 support to histogram display
-	+ Added `utf8?` method to Histogram class
-	+ Modified `output_row` method to use UTF-8 bars with braille when possible
-	+ Added tests for UTF-8 histogram display with and without counts
+  + Added `utf8?` method to Histogram class
+  + Modified `output_row` method to use UTF-8 bars with braille when possible
+  + Added tests for UTF-8 histogram display with and without counts
 
 ## 2024-08-28 v1.1.0
 
 * **Added** `interquartile_range` method to `MoreMath::Sequence`
-	+ Significant changes:
-		- Added `interquartile_range` method to `MoreMath::Sequence`
-		- Updated test cases for `sequence_test.rb`
+  + Significant changes:
+    - Added `interquartile_range` method to `MoreMath::Sequence`
+    - Updated test cases for `sequence_test.rb`
 * **Updated** all_images.yml to include Ruby **3.3**
 
 ## 2024-07-03 v1.0.2
@@ -51,16 +51,16 @@
 * Use github as homepage for rubygems
 * Only test newer ruby versions
 * Fine tune width settings a bit, and raise error when invalid arguments are provided:
-	+ Method: `code`**width_settings**
-	+ Variable: `code`**github_url**
+  + Method: `code`**width_settings**
+  + Variable: `code`**github_url**
 
 ## 2023-05-29 v1.0.1
 
 * **Fine-tuned** the width settings:
-	+ Raised an error when invalid arguments were provided
+  + Raised an error when invalid arguments were provided
 * Significant changes:
-	* Raised error when `stupid` arguments are given to width settings
-	* Updated width settings (no specific details available)
+  * Raised error when `stupid` arguments are given to width settings
+  * Updated width settings (no specific details available)
 
 ## 2023-05-26 v1.0.0
 
@@ -76,8 +76,8 @@
 * Use all_images instead of travis
 * Be compatible to older rubies
 * Adds predicate to check if ContinuedFraction is `#simple?` and add the standard […;…,…] notation for these.
-	+ Adds ContinuedFraction#reciprocal method.
-	+ Use keyword arguments for ContinuedFraction approximations instead of positional arguments.
+  + Adds ContinuedFraction#reciprocal method.
+  + Use keyword arguments for ContinuedFraction approximations instead of positional arguments.
 * Add exp log functions as well
 * Add erfc unless mixed in from Math already
 * Convert number to float b4 calculation
@@ -93,8 +93,8 @@
 ## 2017-07-04 v0.3.3
 
 * Added **1.0** version of the gem with a new feature:
-	+ Added `code`LICENSE = "MIT"` to Gemfile
-	+ Updated `code`gemspec.rb` with `code`SPDX-License-Identifier: MIT`
+  + Added `code`LICENSE = "MIT"` to Gemfile
+  + Updated `code`gemspec.rb` with `code`SPDX-License-Identifier: MIT`
 * No significant changes in this commit
 
 ## 2017-03-09 v0.3.2
@@ -111,20 +111,20 @@
 ## 2016-10-20 v0.3.1
 
 * **Corrected method name**
-	+ Changed `code`**_method_name_** to `code`**_correct_method_name_**
+  + Changed `code`**_method_name_** to `code`**_correct_method_name_**
 
 ## 2016-10-20 v0.3.0
 
 * **Significant Changes**
-	+ Bump version to **1.0** (commit)
-	+ Implement n-element moving average for Sequence in `Sequence` class
-	+ Add functions to compute entropy of texts in `EntropyCalculator` class
-	+ Refactor some methods in `continued_fraction.rb`
-	+ Ignore `.DS_Store` files
+  + Bump version to **1.0** (commit)
+  + Implement n-element moving average for Sequence in `Sequence` class
+  + Add functions to compute entropy of texts in `EntropyCalculator` class
+  + Refactor some methods in `continued_fraction.rb`
+  + Ignore `.DS_Store` files
 * Other changes:
-	+ Test ruby **2.3.1**
-	+ Add codeclimate configuration files
-	+ Add code climate coverage token
+  + Test ruby **2.3.1**
+  + Add codeclimate configuration files
+  + Add code climate coverage token
 
 ## 2015-05-21 v0.2.1
 
@@ -141,10 +141,10 @@
 #### New Features
 
 * Added Permutation features:
-	+ `identity`: Returns a permutation that leaves all elements unchanged.
-	+ `power`: Raises a permutation to a given power.
-	+ `from_mapping`: Creates a permutation from a given mapping.
-	Contributed by Pramukta Kumar <prak@mac.com>.
+  + `identity`: Returns a permutation that leaves all elements unchanged.
+  + `power`: Raises a permutation to a given power.
+  + `from_mapping`: Creates a permutation from a given mapping.
+  Contributed by Pramukta Kumar <prak@mac.com>.
 
 #### Configuration Changes
 
@@ -155,24 +155,24 @@
 ## 2011-12-25 v0.0.4
 
 * **Changes for Ruby 1.9.3 and 1.8**
-	+ Added support for `ruby 1.9.3` as a test target
-	+ Implemented `to_int` method for symbols in Ruby 1.8
+  + Added support for `ruby 1.9.3` as a test target
+  + Implemented `to_int` method for symbols in Ruby 1.8
 * Renamed test files
 
 ## 2011-10-28 v0.0.3
 
 * **Changes in version **bold**0.2.3**bold**:*
-	+ Added permutation class to more_math
-	+ Started power set implementation
-	+ Shared code between subset and permutation
-	+ Fixed small subset issues
-	+ Merged branch 'power_set' into power_set
-	+ Resolved conflicts in lib/more_math.rb, lib/more_math/ranking_common.rb, lib/more_math/subset.rb, and more_math.gemspec
+  + Added permutation class to more_math
+  + Started power set implementation
+  + Shared code between subset and permutation
+  + Fixed small subset issues
+  + Merged branch 'power_set' into power_set
+  + Resolved conflicts in lib/more_math.rb, lib/more_math/ranking_common.rb, lib/more_math/subset.rb, and more_math.gemspec
 
 ## 2011-09-26 v0.0.2
 
 * **Depend on tins library**
-	+ Added dependency on `tins` library.
+  + Added dependency on `tins` library.
 
 ## 2011-07-17 v0.0.1
 
