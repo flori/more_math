@@ -1,5 +1,15 @@
 # Changes
 
+## 2025-07-12 v1.4.0
+
+* Updated `project` method in Subset class with associated tests
+  + Maps dataset elements based on subset indices
+  + Ensures data size validation
+  + Comprehensive test cases for `project` functionality
+* Added a list of features and example usage of the library in README
+* Updated bundler behavior to clean up Gemfile.lock before installing gems
+* Removed obsolete `binary` option from discover block in utility functions
+
 ## 2024-09-30 v1.3.0
 
 * **Added support for displaying histograms based on percentage of terminal width**
