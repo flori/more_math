@@ -5,7 +5,8 @@ script: &script |-
   echo -e "\e[1m"
   ruby -v
   echo -e "\e[0m"
-  bundle --full-index
+  rm -f Gemfile.lock
+  bundle
   rake test
 
 images:
