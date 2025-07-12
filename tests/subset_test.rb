@@ -19,4 +19,15 @@ class SubsetTest < Test::Unit::TestCase
     assert_equal expected, Subset.for([1, 2, 3]).map(&:value)
     assert_equal expected, Subset.power_set([1, 2, 3])
   end
+
+  def test_project
+    a      = %i[ a b c d e ]
+    subset = Subset.new(a.size, 23)
+    assert_raises(ArgumentError) { subset.project a + %i[ f ] }
+    (2 ** a.size).times do |i|
+      subset  = Subset.new(a.size, i)
+      projected = subset.project(a)
+      assert_equal(projected, Subset.power_set(a)[i])
+    end
+  end
 end

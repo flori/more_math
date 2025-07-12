@@ -41,6 +41,13 @@ module MoreMath
       result
     end
 
-    # TODO project
+    # This method maps elements from a given dataset based on the
+    # subset's indices determined by its rank and returns the result, while
+    # ensuring the input data size matches the subset's size.
+    def project(data = nil)
+      data ||= @collection || (0...size).to_a
+      raise ArgumentError, "data size is != #{size}!" if data.size != size
+      value.map { |i| data[i] }
+    end
   end
 end
