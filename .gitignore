@@ -1,6 +1,7 @@
 .*.sw[pon]
 .AppleDouble
 .DS_Store
+.bundle
 .byebug_history
 .rvmrc
 Gemfile.lock

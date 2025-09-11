@@ -11,14 +11,14 @@ GemHadar do
   description 'Library that provides more mathematical functions/algorithms than standard Ruby.'
   test_dir    'tests'
   ignore      '.*.sw[pon]', 'pkg', 'Gemfile.lock', 'coverage', '.rvmrc',
-    '.AppleDouble', 'tags', '.byebug_history', '.DS_Store'
+    '.AppleDouble', 'tags', '.byebug_history', '.DS_Store', '.bundle'
   readme      'README.md'
   title       "#{name.camelize} -- More Math in Ruby"
   package_ignore '.all_images.yml', '.gitignore', 'VERSION', '.utilsrc',
-    *Dir.glob('.github/**/*', File::FNM_DOTMATCH)
+    *Dir['.github/**/*']
 
   required_ruby_version '>= 2.0'
-  dependency  'tins', '~>1.0'
+  dependency  'tins', '~>1'
   dependency  'mize'
   development_dependency 'rake'
   development_dependency 'simplecov'
