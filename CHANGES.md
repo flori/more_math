@@ -1,5 +1,27 @@
 # Changes
 
+## 2025-09-11 v1.5.0
+
+- Updated `VERSION` file and `lib/more_math/version.rb` from version **1.4.0** to **1.5.0**
+- Added new `more_math.gemspec` file with version **1.5.0**
+- Set required Ruby version to **>= 2.0**
+- Added development dependencies including `gem_hadar` (**~> 2.4**) and `tins` (**~> 1**)
+- Added runtime dependency on `mize` (">= 0")
+- Set rubygems version to **3.6.9**
+- Included all library files in `s.files` and `s.extra_rdoc_files`
+- Set homepage to "https://github.com/flori/more_math"
+- Set license to "MIT"
+- Added `yaml-dev` to dockerfile build dependencies
+- Installed `bundler` and `gem_hadar` gems in dockerfile
+- Updated bundle command to `bundle update` and added `--jobs` option
+- Added `fail_fast: true` to CI configuration
+- Added `.bundle` to `.gitignore` file
+- Included `.bundle` in Rakefile ignore list
+- Replaced `Dir.glob('.github/**/*', File::FNM_DOTMATCH)` with `Dir['.github/**/*']`
+- Updated `tins` dependency version from `~>1.0` to `~>1`
+- Removed deprecated `more_math.gemspec` file
+- Replaced simplecov setup with `gem_hadar/simplecov` require and start call
+
 ## 2025-07-12 v1.4.0
 
 * Updated `project` method in Subset class with associated tests
