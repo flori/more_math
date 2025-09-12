@@ -15,7 +15,7 @@ GemHadar do
   readme      'README.md'
   title       "#{name.camelize} -- More Math in Ruby"
   package_ignore '.all_images.yml', '.gitignore', 'VERSION', '.utilsrc',
-    *Dir['.github/**/*']
+    '.github', '.contexts'
 
   required_ruby_version '>= 2.0'
   dependency  'tins', '~>1'
