@@ -9,7 +9,7 @@
 - Added runtime dependency on `mize` (">= 0")
 - Set rubygems version to **3.6.9**
 - Included all library files in `s.files` and `s.extra_rdoc_files`
-- Set homepage to "https://github.com/flori/more_math"
+- Set homepage to "https://github.com/flori/more\_math"
 - Set license to "MIT"
 - Added `yaml-dev` to dockerfile build dependencies
 - Installed `bundler` and `gem_hadar` gems in dockerfile
