@@ -4,7 +4,9 @@
 .bundle
 .byebug_history
 .rvmrc
+.yardoc
 Gemfile.lock
 coverage
+doc
 pkg
 tags
