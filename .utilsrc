@@ -27,3 +27,26 @@ end
 classify do
   shift_path_by_default 1
 end
+
+code_indexer do
+  verbose false
+
+  gems = %w[
+    base64
+    bigdecimal
+    date
+    json
+    mize
+    ostruct
+    rake
+    stringio
+    sync
+    test-unit
+    tins
+  ]
+
+  paths {
+    %w[ lib ] + gems.map { `bundle show #{it}` }.map(&:chomp)
+  }
+end
+
