@@ -26,5 +26,6 @@ GemHadar do
   development_dependency 'test-unit'
   development_dependency 'debug'
   development_dependency 'all_images'
+  development_dependency 'context_spook'
   licenses << 'MIT'
 end

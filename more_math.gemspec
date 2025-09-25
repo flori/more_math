@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency(%q<test-unit>.freeze, [">= 0".freeze])
   s.add_development_dependency(%q<debug>.freeze, [">= 0".freeze])
   s.add_development_dependency(%q<all_images>.freeze, [">= 0".freeze])
+  s.add_development_dependency(%q<context_spook>.freeze, [">= 0".freeze])
   s.add_runtime_dependency(%q<tins>.freeze, ["~> 1".freeze])
   s.add_runtime_dependency(%q<mize>.freeze, [">= 0".freeze])
 end
