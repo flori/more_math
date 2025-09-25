@@ -1,3 +1,4 @@
+# Main namespace module for the MoreMath library.
 module MoreMath
   unless defined?(::MoreMath::Infinity) == 'constant'
     Infinity = 1.0 / 0      # Refers to floating point infinity.
