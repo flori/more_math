@@ -18,6 +18,10 @@ GemHadar do
   package_ignore '.all_images.yml', '.gitignore', 'VERSION', '.utilsrc',
     '.github', '.contexts', '.contexts'
 
+  github_workflows(
+    'static.yml' => { }
+  )
+
   required_ruby_version '>= 2.0'
   dependency  'tins', '~>1'
   dependency  'mize'
