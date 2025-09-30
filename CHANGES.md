@@ -1,5 +1,32 @@
 # Changes
 
+## 2025-09-30 v1.6.0
+
+- Replaced detailed feature sections in README with a concise bullet list of
+  MoreMath capabilities
+- Added documentation link to GitHub.io and updated installation instructions
+  to include both RubyGems and Bundler
+- Improved author and license formatting with proper markdown links
+- Added `.github/workflows/static.yml` to automate documentation generation and
+  deployment using Ruby **3.4**
+- Updated `Rakefile` to register new documentation workflow with GemHadar
+- Configured workflow to use Ruby **3.4** for documentation builds and deploy
+  to GitHub Pages on master branch pushes
+- Added `context_spook` as development dependency for YARD documentation
+- Added `cscope.out` to `.gitignore` and updated `Rakefile` to include it in
+  the ignore list
+- Added `code_indexer` configuration to `.utilsrc` with a list of gems
+  including **base64**, **bigdecimal**, **date**, **json**, **mize**,
+  **ostruct**, **rake**, **stringio**, **sync**, **test-unit**, and **tins**
+- Added `doc` and `.yardoc` directories to gitignore and rake configuration
+- Updated homepage URL to escape underscore character for proper rendering
+- Updated `gem_hadar` development dependency from version **2.4** to **2.6**
+- Modified `package_ignore` in Rakefile to explicitly include `.github` and
+  `.contexts` directories instead of using glob pattern `*.github/**/*`
+- Enhanced documentation for all methods in MoreMath module
+- Added documentation directories `.yardoc` and `doc` to `prune_dirs` in
+  utilsrc
+
 ## 2025-09-11 v1.5.0
 
 - Updated `VERSION` file and `lib/more_math/version.rb` from version **1.4.0** to **1.5.0**
