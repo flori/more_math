@@ -1,4 +1,5 @@
 require 'more_math/entropy'
+require 'more_math/lambert'
 
 module MoreMath
   # Provides mathematical functions and special functions for scientific computing.
@@ -345,5 +346,7 @@ module MoreMath
 
     # Includes entropy calculations functionality
     include Entropy
+    # Include lambert W function
+    include Lambert
   end
 end
