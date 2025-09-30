@@ -6,54 +6,22 @@ Ruby library that contains various mathematical functions and algorithms,
 extending Ruby's capabilities in domains such as statistics, numerical
 analysis, and combinatorics.
 
-### Core Features
+MoreMath provides a comprehensive set of mathematical tools including:
+- Advanced mathematical functions (gamma, beta, error functions)
+- Mathematical constants and precision utilities
+- Statistical distributions and hypothesis testing
+- Sequence analysis and time series operations
+- Combinatorial algorithms (permutations, subsets)
+- Special functions (continued fractions, Cantor pairing)
+- Data visualization tools (histograms)
+- String numeral conversion and Gödel numbering
+- Numerical integration methods
+- Statistical quality control tools
+- Information theory calculations
 
-1. **Mathematical Functions**
-   - **Gamma Function**: Computes the gamma function for real numbers.
-   - **Beta Function**: Calculates the beta function and its regularized form.
-   - **Error Function (erf)**: Provides the error function used in probability
-     and statistics.
+## Documentation
 
-2. **Special Functions**
-   - **Lambert W Function**: Solves equations of the form `x = a * exp(x)`.
-   - **Continued Fractions**: Evaluates continued fractions for various
-     mathematical expressions.
-
-3. **Statistical Tools**
-   - **Probability Distributions**: Implements distributions like Student's t,
-     chi-squared, and Fisher's z.
-   - **Random Number Generation**: Generates random numbers following specific
-     distributions.
-   - **Hypothesis Testing**: Performs tests like the Kolmogorov-Smirnov test
-     for distribution comparison.
-
-4. **Sequence Analysis**
-   - **Moving Averages**: Computes simple moving averages for time series data.
-   - **Autocorrelation and Autovariance**: Analyzes the correlation structure
-     of sequences.
-   - **Histograms**: Visualizes data distributions with customizable bins.
-
-5. **Combinatorics and Algorithms**
-   - **Permutations and Combinations**: Generates permutations, combinations,
-     and Cartesian products.
-   - **Graph Theory**: Includes algorithms for shortest paths (Dijkstra,
-     Floyd-Warshall) and minimum spanning trees.
-   - **Root Finding**: Uses Newton-Raphson and bisection methods to find roots
-     of functions.
-
-### Specialized Modules
-
-1. **String Numeral Conversion**
-   - Converts strings to Gödel numbers and vice versa using a specified
-   alphabet.
-
-2. **Cantor Pairing Function**
-   - Encodes tuples into a single integer and decodes them back, useful in set
-   theory and combinatorics.
-
-3. **Histograms**
-   - Creates histograms for data visualization with support for different
-   binning strategies.
+Complete API documentation is available at: [GitHub.io](https://flori.github.io/more_math/)
 
 ## Example Usage
 
@@ -86,21 +54,24 @@ Histogram.new([1, 2, 3, 4, 5, 1], bins: 3).display(STDOUT, 80) ; nil
 
 ## Installation
 
-To install `more_math`, run:
-
+### Using RubyGems
 ```bash
 gem install more_math
 ```
 
+### Using Bundler
+Add to your Gemfile:
+```ruby
+gem 'more_math'
+```
+
 ## Author
 
-Florian Frank  
-mailto:flori@ping.de
+[Florian Frank](mailto:flori@ping.de)
 
 ## License
 
-This software is licensed under the X11 (or MIT) license:
-http://www.xfree86.org/3.3.6/COPYRIGHT2.html#3
+This software is licensed under the [MIT License](./LICENSE).
 
 ## Homepage
 
