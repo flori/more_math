@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'test_helper'
-require 'more_math'
 
 class StringNumeralTest < Test::Unit::TestCase
   include MoreMath

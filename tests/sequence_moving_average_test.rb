@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'test_helper'
-require 'more_math'
 
 class SequenceMovingAverageTest < Test::Unit::TestCase
   include MoreMath
@@ -28,4 +27,3 @@ class SequenceMovingAverageTest < Test::Unit::TestCase
     assert_equal [ @seq.mean ], @seq.moving_average(5)
   end
 end
-
