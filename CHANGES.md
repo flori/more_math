@@ -1,5 +1,31 @@
 # Changes
 
+## 2025-12-19 v1.7.0
+
+- Updated `bundle update` command to `bundle update --all` in `.all_images.yml`
+- Added `ruby:4.0-rc-alpine` image configuration to `.all_images.yml`
+- Added `lib/more_math/lambert.rb` to `s.extra_rdoc_files` and `s.files` in
+  `more_math.gemspec`
+- Added `tests/lambert_test.rb` to `s.test_files` in `more_math.gemspec`
+- Updated `s.rubygems_version` from **3.6.9** to **4.0.2** in
+  `more_math.gemspec`
+- Updated `s.add_development_dependency` for `gem_hadar` from "~> 2.7" to "~>
+  2.10" in `more_math.gemspec`
+- Added `openssl-dev` to the list of packages installed by `apk add` in
+  `.all_images.yml`
+- Rely on `test_helper` requiring `more_math`
+- Added `MoreMath::Lambert` module with `lambert_w` method for principal branch
+- Integrated `MoreMath::Lambert` into `MoreMath::Functions` module
+- Included comprehensive test suite in `TestLambertW` class
+- Added YARD documentation with examples and parameter descriptions
+- Required `more_math/lambert` in `more_math/functions.rb`
+- Supported special cases: W(0)=0, W(∞)=∞, W(-1/e)=-1
+- Verified solution property: W(y)·e^(W(y)) = y
+- Handled domain error for y < -1/e with NaN return
+- Used `MoreMath::NewtonBisection` for robust numerical root finding
+- Tests cover values: 0, 1, 100, 0.1, 1000 with expected results
+- Tested convergence verification and edge cases
+
 ## 2025-09-30 v1.6.0
 
 - Replaced detailed feature sections in README with a concise bullet list of
