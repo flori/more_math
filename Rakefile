@@ -18,6 +18,10 @@ GemHadar do
   package_ignore '.all_images.yml', '.gitignore', 'VERSION', '.utilsrc',
     '.github', '.contexts', '.contexts'
 
+  changelog do
+    filename 'CHANGES.md'
+  end
+
   github_workflows(
     'static.yml' => { }
   )
