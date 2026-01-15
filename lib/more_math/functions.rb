@@ -344,9 +344,9 @@ module MoreMath
       NumberifyStringFunction.stringify_number(number, alphabet)
     end
 
-    # Includes entropy calculations functionality
     include Entropy
-    # Include lambert W function
+    extend Entropy
     include Lambert
+    extend Lambert
   end
 end
