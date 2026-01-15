@@ -29,4 +29,14 @@ class FunctionsTest < Test::Unit::TestCase
       assert_in_delta y, 1 - gammaQ5_2(x), 1E-10
     end
   end
+
+  def test_inclusion_extension_entropy
+    assert MoreMath::Functions.respond_to?(:entropy_ratio)
+    assert MoreMath::Functions.instance_methods.include?(:entropy_ratio)
+  end
+
+  def test_inclusion_extension_lambert
+    assert MoreMath::Functions.respond_to?(:lambert_w)
+    assert MoreMath::Functions.instance_methods.include?(:lambert_w)
+  end
 end
