@@ -17,13 +17,13 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT".freeze]
   s.rdoc_options = ["--title".freeze, "MoreMath -- More Math in Ruby".freeze, "--main".freeze, "README.md".freeze]
   s.required_ruby_version = Gem::Requirement.new(">= 2.0".freeze)
-  s.rubygems_version = "4.0.2".freeze
+  s.rubygems_version = "4.0.3".freeze
   s.summary = "Library that provides more mathematics.".freeze
   s.test_files = ["tests/cantor_pairing_function_test.rb".freeze, "tests/continued_fraction_test.rb".freeze, "tests/distribution_test.rb".freeze, "tests/entropy_test.rb".freeze, "tests/functions_test.rb".freeze, "tests/histogram_test.rb".freeze, "tests/lambert_test.rb".freeze, "tests/newton_bisection_test.rb".freeze, "tests/numberify_string_function_test.rb".freeze, "tests/permutation_test.rb".freeze, "tests/sequence/refinement_test.rb".freeze, "tests/sequence_moving_average_test.rb".freeze, "tests/sequence_test.rb".freeze, "tests/string_numeral_test.rb".freeze, "tests/subset_test.rb".freeze, "tests/test_helper.rb".freeze]
 
   s.specification_version = 4
 
-  s.add_development_dependency(%q<gem_hadar>.freeze, ["~> 2.10".freeze])
+  s.add_development_dependency(%q<gem_hadar>.freeze, [">= 2.17.0".freeze])
   s.add_development_dependency(%q<rake>.freeze, [">= 0".freeze])
   s.add_development_dependency(%q<simplecov>.freeze, [">= 0".freeze])
   s.add_development_dependency(%q<test-unit>.freeze, [">= 0".freeze])
