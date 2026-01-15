@@ -1,5 +1,19 @@
 # Changes
 
+## 2026-01-15 v1.8.0
+
+- Added tests for `entropy_ratio` and `lambert_w` method inclusion/extension
+- Extended `MoreMath::Functions` module with `Entropy` and `Lambert` modules
+  using `extend` instead of `include`
+- Updated test execution command to use `bundle exec`
+- Updated gem dependencies and version requirements:
+  - Updated `rubygems` version requirement from **4.0.2** to **4.0.3**
+  - Changed `gem_hadar` development dependency from version constraint "~>
+    2.10" to ">= 2.17.0"
+  - Maintained compatibility with Ruby **2.0** and later versions
+- Added changelog configuration to Rakefile with `filename` set to `CHANGES.md`
+- Updated Ruby version from 4.0-rc-alpine to 4.0-alpine
+
 ## 2025-12-19 v1.7.0
 
 - Updated `bundle update` command to `bundle update --all` in `.all_images.yml`
