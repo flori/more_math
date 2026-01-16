@@ -1,5 +1,16 @@
 # Changes
 
+## 2026-01-16 v1.9.0
+
+- Added support for array inputs in entropy calculation methods by checking
+  `text.respond_to?(:chars)` and using raw arrays when appropriate
+- Added `MoreMath::Entropy.entropy_ratio_minimum` method to provide
+  conservative lower bound accounting for sampling error
+- Updated `entropy_ratio` method to use `text.size` instead of
+  `text.each_char.size` for consistency
+- Added comprehensive tests for new minimum entropy
+  ratio methods
+
 ## 2026-01-15 v1.8.0
 
 - Added tests for `entropy_ratio` and `lambert_w` method inclusion/extension
