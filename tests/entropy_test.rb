@@ -12,14 +12,16 @@ class EntropyTest < Test::Unit::TestCase
     @string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
     @high   = 'The quick brown fox jumps over the lazy dog'
     @random = "\xAC-\x8A\xF5\xA8\xF7\\\e\xB5\x8CI\x06\xA7"
+    @hi     = "こんにちは世界"
   end
 
   def test_entropy
     assert_equal 0, entropy(@empty)
     assert_equal 0, entropy(@low)
-    assert_in_delta 3.9514, entropy(@string), 1E-3
-    assert_in_delta 4.4319, entropy(@high), 1E-3
+    assert_in_delta 3.951, entropy(@string), 1E-3
+    assert_in_delta 4.431, entropy(@high), 1E-3
     assert_in_delta 3.700, entropy(@random), 1E-3
+    assert_in_delta 2.807, entropy(@hi), 1E-3
   end
 
   def test_entropy_ideal
@@ -27,19 +29,21 @@ class EntropyTest < Test::Unit::TestCase
     assert_equal 0, entropy_ideal(0)
     assert_equal 0, entropy_ideal(0.5)
     assert_equal 0, entropy_ideal(1)
-    assert_in_delta 1, entropy_ideal(2), 1E-3
+    assert_in_delta 1,     entropy_ideal(2), 1E-3
     assert_in_delta 1.584, entropy_ideal(3), 1E-3
-    assert_in_delta 3, entropy_ideal(8), 1E-3
+    assert_in_delta 3,     entropy_ideal(8), 1E-3
     assert_in_delta 3.321, entropy_ideal(10), 1E-3
-    assert_in_delta 4, entropy_ideal(16), 1E-3
+    assert_in_delta 4,     entropy_ideal(16), 1E-3
   end
 
   def test_entropy_ratio
-    assert_equal 0, entropy_ratio(@empty)
-    assert_equal 0, entropy_ratio(@low)
-    assert_in_delta 0.6834, entropy_ratio(@string), 1E-3
-    assert_in_delta 0.8167, entropy_ratio(@high), 1E-3
-    assert_in_delta 1.0, entropy_ratio(@random), 1E-3
+    assert_equal 0,        entropy_ratio(@empty)
+    assert_equal 0,        entropy_ratio(@low, size: 128)
+    assert_in_delta 0.564, entropy_ratio(@string, size: 128), 1E-3
+    assert_in_delta 0.633, entropy_ratio(@high, size: 128), 1E-3
+    assert_in_delta 1.0,   entropy_ratio(@random), 1E-3
+    assert_in_delta 0.462, entropy_ratio(@random, size: 256), 1E-3
+    assert_in_delta 0.253, entropy_ratio(@hi, size: 2_136), 1E-3
   end
 
   def test_entropy_ratio_minimum_basic

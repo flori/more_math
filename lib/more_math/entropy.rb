@@ -37,7 +37,12 @@ module MoreMath
     # @param text [String] The input text to calculate entropy for
     # @return [Float] The Shannon entropy in bits
     def entropy(text)
-      chars = text.chars
+      chars = nil
+      if text.respond_to?(:chars)
+        chars = text.chars
+      else
+        chars = text
+      end
       size  = chars.size
 
       chars.each_with_object(Hash.new(0.0)) { |c, h| h[c] += 1 }.
