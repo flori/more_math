@@ -89,12 +89,9 @@ module MoreMath
     #   entropy_ratio("hello", size: 26) # => 0.394...
     #
     # @param text [String] The input text to calculate entropy ratio for
-    # @param size [Integer] The size of the character set to normalize against.
-    #   Defaults to the total length of the text (`text.size`), which
-    #   normalizes the entropy relative to the text's own character space.
-    #   This allows comparison of texts with different lengths on the same scale.
+    # @param size [Integer] The size of the character set to normalize against (alphabet size).
     # @return [Float] Normalized entropy ratio between 0 and 1
-    def entropy_ratio(text, size: text.size)
+    def entropy_ratio(text, size:)
       size <= 1 and return 0.0
       entropy(text) / entropy_ideal(size)
     end
@@ -107,11 +104,12 @@ module MoreMath
     #
     # @param text [String] The input text to calculate entropy ratio for
     # @param size [Integer] The size of the character set to normalize against
+    #   (alphabet size).
     # @param alpha [Float] The significance level for the confidence interval (default: 0.05)
     # @return [Float] The adjusted entropy ratio within the confidence interval
     # @raise [ArgumentError] When alphabet size is less than 2
     # @raise [ArgumentError] When text is empty
-    def entropy_ratio_minimum(text, size: text.size, alpha: 0.05)
+    def entropy_ratio_minimum(text, size:, alpha: 0.05)
       raise ArgumentError, 'alphabet size must be ≥ 2' if size < 2
       raise ArgumentError, 'text must not be empty'    if text.empty?
 

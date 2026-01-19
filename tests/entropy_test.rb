@@ -47,11 +47,11 @@ class EntropyTest < Test::Unit::TestCase
   end
 
   def test_entropy_ratio
-    assert_equal 0,        entropy_ratio(@empty)
+    assert_equal 0,        entropy_ratio(@empty, size: 128)
     assert_equal 0,        entropy_ratio(@low, size: 128)
     assert_in_delta 0.564, entropy_ratio(@string, size: 128), 1E-3
     assert_in_delta 0.633, entropy_ratio(@high, size: 128), 1E-3
-    assert_in_delta 1.0,   entropy_ratio(@random), 1E-3
+    assert_in_delta 1.0,   entropy_ratio(@random, size: @random.size), 1E-3
     assert_in_delta 0.462, entropy_ratio(@random, size: 256), 1E-3
     assert_in_delta 0.253, entropy_ratio(@hi, size: 2_136), 1E-3
   end
