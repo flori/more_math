@@ -36,6 +36,16 @@ class EntropyTest < Test::Unit::TestCase
     assert_in_delta 4,     entropy_ideal(16), 1E-3
   end
 
+  def test_entropy_mamxium
+    text = 'A' * 64
+    assert_equal 0, entropy_maximum(text, size: -1)
+    assert_equal 0, entropy_maximum(text, size: 0)
+    assert_equal 0, entropy_maximum(text, size: 1)
+    assert_equal 64, entropy_maximum(text, size: 2)
+    assert_equal 256, entropy_maximum(text, size: 16)
+    assert_equal 128, entropy_maximum(text[0, 32], size: 16)
+  end
+
   def test_entropy_ratio
     assert_equal 0,        entropy_ratio(@empty)
     assert_equal 0,        entropy_ratio(@low, size: 128)

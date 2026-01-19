@@ -15,24 +15,24 @@ module MoreMath
   #
   # @example Basic usage
   #   require 'more_math'
-  #   include MoreMath
+  #   include MoreMath::Functions
   #
   #   text = "hello world"
   #   puts entropy(text)        # => 2.3219280948873626
   #   puts entropy_ratio(text)   # => 0.7428571428571429
   #
   # @example Using with different text samples
-  #   MoreMath::Entropy.entropy("aaaa")           # => 0.0 (no entropy)
-  #   MoreMath::Entropy.entropy("abcd")           # => 2.0 (maximum entropy)
+  #   entropy("aaaa")           # => 0.0 (no entropy)
+  #   entropy("abcd")           # => 2.0 (actual entropy)
   module Entropy
-    # Calculates the Shannon entropy of a text string.
+    # Calculates the Shannon entropy in bits of a text string.
     #
     # Shannon entropy measures the average amount of information (in bits) needed
     # to encode characters in the text based on their frequencies.
     #
     # @example
-    #   MoreMath::Entropy.entropy("hello") # => 2.3219280948873626
-    #   MoreMath::Entropy.entropy("aaaa")  # => 0.0
+    #   entropy("hello") # => 2.3219280948873626
+    #   entropy("aaaa")  # => 0.0
     #
     # @param text [String] The input text to calculate entropy for
     # @return [Float] The Shannon entropy in bits
@@ -58,8 +58,8 @@ module MoreMath
     # alphabet have equal probability of occurrence.
     #
     # @example
-    #   MoreMath::Entropy.entropy_ideal(2)  # => 1.0
-    #   MoreMath::Entropy.entropy_ideal(256) # => 8.0
+    #   entropy_ideal(2)  # => 1.0
+    #   entropy_ideal(256) # => 8.0
     #
     # @param size [Integer] The number of unique characters in the alphabet
     # @return [Float] The maximum possible entropy in bits
@@ -80,13 +80,13 @@ module MoreMath
     # theoretical maximum entropy for that character set.
     #
     # @example
-    #   MoreMath::Entropy.entropy_ratio("hello")     # => 0.6834
-    #   MoreMath::Entropy.entropy_ratio("aaaaa")     # => 0.0
-    #   MoreMath::Entropy.entropy_ratio("abcde")     # => 1.0
+    #   entropy_ratio("hello")     # => 0.6834
+    #   entropy_ratio("aaaaa")     # => 0.0
+    #   entropy_ratio("abcde")     # => 1.0
     #
     # @example With custom alphabet size
     #   # Normalizing against a 26-letter alphabet (English)
-    #   MoreMath::Entropy.entropy_ratio("hello", size: 26) # => 0.394...
+    #   entropy_ratio("hello", size: 26) # => 0.394...
     #
     # @param text [String] The input text to calculate entropy ratio for
     # @param size [Integer] The size of the character set to normalize against.
@@ -128,6 +128,26 @@ module MoreMath
       z = STD_NORMAL_DISTRIBUTION.inverse_probability(1.0 - alpha / 2.0)
 
       (ratio - z * se).clamp(0, 1)
+    end
+
+    # Calculates the maximum possible entropy for a given text and alphabet
+    # size.
+    #
+    # This represents the theoretical maximum entropy that could be achieved if
+    # all characters in the text were chosen uniformly at random from the
+    # alphabet. It's used to determine the upper bound of security strength for
+    # tokens.
+    #
+    # @example
+    #   entropy_maximum("hello", size: 26)  # => 23
+    #   entropy_maximum("abc123", size: 64) # => 36
+    #
+    # @param text [String] The input text to calculate maximum entropy for
+    # @param size [Integer] The size of the character set (alphabet size)
+    # @return [Integer] The maximum possible entropy in bits, or 0 if size <= 1
+    def entropy_maximum(text, size:)
+      size > 1 or return 0
+      (text.size * Math.log2(size)).floor
     end
   end
 end
