@@ -1,5 +1,29 @@
 # Changes
 
+## 2026-01-19 v1.10.0
+
+- Added new `entropy_maximum` method to calculate theoretical maximum entropy
+  for a text given an alphabet size
+- Made `size` parameter required in `entropy_ratio` and `entropy_ratio_minimum`
+  methods instead of defaulting to `text.size`
+- Updated YARD documentation to clarify that `size` parameter represents
+  alphabet size
+- Modified examples to use explicit alphabet sizes for better clarity
+- All entropy methods now consistently return values in bits as expected for
+  Shannon entropy
+- Updated documentation examples to use simplified method calls without
+  `MoreMath::Entropy` prefix
+- Enhanced `entropy_maximum` method documentation to explain its use in
+  determining security strength for tokens
+- Added comprehensive tests for `entropy_maximum` function covering edge cases
+  and various alphabet sizes
+- Improved `entropy_maximum` method signature to return `0` for invalid
+  alphabet sizes (≤ 1) and use `Math.log2` for calculation
+- Updated existing entropy method documentation to clarify it calculates
+  entropy in bits
+- Simplified example code in documentation to use direct method calls instead
+  of module prefixes
+
 ## 2026-01-16 v1.9.0
 
 - Added support for array inputs in entropy calculation methods by checking
