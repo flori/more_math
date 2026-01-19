@@ -80,13 +80,10 @@ module MoreMath
     # theoretical maximum entropy for that character set.
     #
     # @example
-    #   entropy_ratio("hello")     # => 0.6834
-    #   entropy_ratio("aaaaa")     # => 0.0
-    #   entropy_ratio("abcde")     # => 1.0
-    #
-    # @example With custom alphabet size
-    #   # Normalizing against a 26-letter alphabet (English)
-    #   entropy_ratio("hello", size: 26) # => 0.394...
+    #   entropy_ratio("hello", size: 26) # => 0.4088
+    #   entropy_ratio("aaaaa", size: 26) # => 0.0
+    #   entropy_ratio("abcde", size: 5)  # => 1.0
+    #   entropy_ratio("abcde", size: 26) # => 0.4939
     #
     # @param text [String] The input text to calculate entropy ratio for
     # @param size [Integer] The size of the character set to normalize against (alphabet size).
