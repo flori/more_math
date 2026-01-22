@@ -1,5 +1,25 @@
 # Changes
 
+## 2026-01-22 v1.11.0
+
+- Added new entropy helper methods: `entropy_probabilities`,
+  `entropy_per_symbol`, `minimum_entropy_per_symbol`,
+  `collision_entropy_per_symbol`, `entropy_total`, `minimum_entropy_total`, and
+  `collision_entropy_total` to `lib/more_math/entropy.rb`
+- Replaced the old `entropy` method with an alias to `entropy_per_symbol`
+- Updated documentation for `entropy_ratio` to clarify the `size:` keyword
+  argument
+- Removed the `entropy_ratio_minimum` method and its corresponding test cases
+  from the codebase
+- Enhanced test coverage in `tests/entropy_test.rb` with new unit tests for the
+  added helper methods
+    - Updated existing test assertions to use `assert_in_delta` for floating-point
+      comparisons
+    - Added descriptive comments to the test `setup` method
+    - Ensured all new methods return correct values for empty, uniform, and
+      varied symbol strings
+- Corrected example values in `entropy_ratio` documentation
+
 ## 2026-01-19 v1.10.0
 
 - Added new `entropy_maximum` method to calculate theoretical maximum entropy
