@@ -25,31 +25,128 @@ module MoreMath
   #   entropy("aaaa")           # => 0.0 (no entropy)
   #   entropy("abcd")           # => 2.0 (actual entropy)
   module Entropy
-    # Calculates the Shannon entropy in bits of a text string.
+    # Calculates the probability distribution of symbols in the given input.
     #
-    # Shannon entropy measures the average amount of information (in bits) needed
-    # to encode characters in the text based on their frequencies.
+    # This method computes the frequency of each symbol in the input and
+    # converts these frequencies into probabilities by dividing by the total
+    # number of symbols.
     #
-    # @example
-    #   entropy("hello") # => 2.3219280948873626
-    #   entropy("aaaa")  # => 0.0
-    #
-    # @param text [String] The input text to calculate entropy for
-    # @return [Float] The Shannon entropy in bits
-    def entropy(text)
-      chars = nil
-      if text.respond_to?(:chars)
-        chars = text.chars
-      else
-        chars = text
-      end
-      size  = chars.size
+    # @param symbols [String, Array<String>] The sequence of symbols to
+    #   calculate probabilities for
+    # @return [Hash<String, Float>] A hash mapping each symbol to its
+    #   probability value
+    def entropy_probabilities(symbols)
+      symbols = symbols.chars if symbols.respond_to?(:chars)
 
-      chars.each_with_object(Hash.new(0.0)) { |c, h| h[c] += 1 }.
-        each_value.reduce(0.0) do |entropy, count|
-          frequency = count / size
-          entropy + frequency * Math.log2(frequency)
-        end.abs
+      freq  = symbols.tally
+      total = symbols.size
+
+      freq.transform_values { |c| c.to_f / total }
+    end
+
+    # Calculates the Shannon entropy per symbol in the given symbols.
+    #
+    # This method computes the entropy of a sequence of symbols, measuring the
+    # average information content or unpredictability of the symbols.
+    #
+    # @param symbols [String, Array<String>] The sequence of symbols to calculate entropy for
+    # @return [Float] The entropy value in bits per symbol
+    def entropy_per_symbol(symbols)
+      symbols = symbols.chars if symbols.respond_to?(:chars)
+
+      symbols.empty? and return 0.0
+
+      probs = entropy_probabilities(symbols)
+
+      -probs.values.sum { |p| p * Math.log2(p) }
+    end
+    alias entropy entropy_per_symbol
+
+    # Calculates the minimum entropy per symbol in the given symbols.
+    #
+    # This method determines the minimum possible entropy for a sequence of
+    # symbols, which represents the entropy when all symbols are equally
+    # likely.
+    #
+    # @param symbols [String, Array<String>] The sequence of symbols to
+    #   calculate minimum entropy for
+    # @return [Float] The minimum entropy value in bits per symbol
+    def minimum_entropy_per_symbol(symbols)
+      symbols = symbols.chars if symbols.respond_to?(:chars)
+
+      symbols.empty? and return 0.0
+
+      probs = entropy_probabilities(symbols)
+
+      -Math.log2(probs.values.max)
+    end
+
+    # Calculates the collision entropy per symbol in the given symbols.
+    #
+    # This method computes the collision entropy, which measures the
+    # unpredictability of the most likely outcome in a symbol sequence. It's
+    # based on the sum of squared probabilities of each symbol.
+    #
+    # @param symbols [String, Array<String>] The sequence of symbols to
+    #   calculate collision entropy for
+    # @return [Float] The collision entropy value in bits per symbol
+    def collision_entropy_per_symbol(symbols)
+      symbols = symbols.chars if symbols.respond_to?(:chars)
+
+      symbols.empty? and return 0.0
+
+      probs = entropy_probabilities(symbols)
+
+      -Math.log2(probs.values.sum { |p| p * p })
+    end
+
+    # Calculates the total entropy for a sequence of symbols.
+    #
+    # This method computes the total information content of a symbol sequence
+    # by multiplying the entropy per symbol by the total number of symbols.
+    #
+    # @param symbols [String, Array<String>] The sequence of symbols to
+    #   calculate total entropy for
+    # @return [Float] The total entropy value in bits for the entire symbol
+    #   sequence
+    def entropy_total(symbols)
+      symbols = symbols.chars if symbols.respond_to?(:chars)
+
+      entropy_per_symbol(symbols) * symbols.size
+    end
+
+    # Calculates the total minimum entropy for a sequence of symbols.
+    #
+    # This method computes the total information content of a symbol sequence
+    # using the minimum entropy per symbol, multiplied by the total number of
+    # symbols. It represents the theoretical minimum possible entropy for the
+    # given sequence.
+    #
+    # @param symbols [String, Array<String>] The sequence of symbols to
+    #   calculate total minimum entropy for
+    # @return [Float] The total minimum entropy value in bits for the entire
+    #   symbol sequence
+    def minimum_entropy_total(symbols)
+      symbols = symbols.chars if symbols.respond_to?(:chars)
+
+      minimum_entropy_per_symbol(symbols) * symbols.size
+    end
+
+    # Calculates the total collision entropy for a sequence of symbols.
+    #
+    # This method computes the total information content of a symbol sequence
+    # using the collision entropy per symbol, multiplied by the total number of
+    # symbols. Collision entropy measures the unpredictability of the most
+    # likely outcome in a symbol sequence.
+    #
+    # @param symbols [String, Array<String>] The sequence of symbols to
+    #   calculate total collision entropy for
+    # @return [Float] The total collision entropy value in bits for the entire
+    #   symbol sequence
+    def collision_entropy_total(symbols)
+      symbols = symbols.chars if symbols.respond_to?(:chars)
+
+      collision_entropy_per_symbol(symbols) * symbols.size
     end
 
     # Calculates the ideal (maximum) entropy for a given character set size.
@@ -85,8 +182,10 @@ module MoreMath
     #   entropy_ratio("abcde", size: 5)  # => 1.0
     #   entropy_ratio("abcde", size: 26) # => 0.4939
     #
+    #
     # @param text [String] The input text to calculate entropy ratio for
-    # @param size [Integer] The size of the character set to normalize against (alphabet size).
+    # @param size [Integer] The size of the character set to normalize against
+    #   (alphabet size).
     # @return [Float] Normalized entropy ratio between 0 and 1
     def entropy_ratio(text, size:)
       size <= 1 and return 0.0
