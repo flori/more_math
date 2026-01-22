@@ -93,38 +93,6 @@ module MoreMath
       entropy(text) / entropy_ideal(size)
     end
 
-    # Calculates the minimum entropy ratio with confidence interval adjustment
-    #
-    # This method computes a adjusted entropy ratio that accounts for
-    # statistical uncertainty by incorporating the standard error and a
-    # confidence level.
-    #
-    # @param text [String] The input text to calculate entropy ratio for
-    # @param size [Integer] The size of the character set to normalize against
-    #   (alphabet size).
-    # @param alpha [Float] The significance level for the confidence interval (default: 0.05)
-    # @return [Float] The adjusted entropy ratio within the confidence interval
-    # @raise [ArgumentError] When alphabet size is less than 2
-    # @raise [ArgumentError] When text is empty
-    def entropy_ratio_minimum(text, size:, alpha: 0.05)
-      raise ArgumentError, 'alphabet size must be ≥ 2' if size < 2
-      raise ArgumentError, 'text must not be empty'    if text.empty?
-
-      n = text.size
-      k = size
-
-      ratio = MoreMath::Functions.entropy_ratio(text, size: k)
-
-      logk = Math.log2(k)
-      diff = logk - 1.0 / Math.log(2)
-      var  = (diff ** 2) / (logk ** 2) * (1.0 - 1.0 / k) / n
-      se   = Math.sqrt(var)          # standard error
-
-      z = STD_NORMAL_DISTRIBUTION.inverse_probability(1.0 - alpha / 2.0)
-
-      (ratio - z * se).clamp(0, 1)
-    end
-
     # Calculates the maximum possible entropy for a given text and alphabet
     # size.
     #

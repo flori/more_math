@@ -55,26 +55,4 @@ class EntropyTest < Test::Unit::TestCase
     assert_in_delta 0.462, entropy_ratio(@random, size: 256), 1E-3
     assert_in_delta 0.253, entropy_ratio(@hi, size: 2_136), 1E-3
   end
-
-  def test_entropy_ratio_minimum_basic
-    # A fairly long random token over a 16‑symbol alphabet
-    token = Tins::Token.new(length: 128, alphabet: Tins::Token::BASE16_LOWERCASE_ALPHABET)
-
-    limit = entropy_ratio_minimum(token, size: 16)
-
-    # Bounds must be ≧ 0
-    assert_operator limit, :>=, 0.0
-
-    # The observed ratio should be ≧ limit
-    ratio = entropy_ratio(token, size: 16)
-    assert_operator ratio, :>=, limit
-  end
-
-  def test_entropy_ratio_minimum_small
-    # Very short string – the interval will stay below 1.0
-    str = 'a'          # alphabet size 2 (binary)
-    limit = entropy_ratio_minimum(str, size: 2)
-
-    assert_equal 0.0, limit
-  end
 end
