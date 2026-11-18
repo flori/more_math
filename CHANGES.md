@@ -1,5 +1,24 @@
 # Changes
 
+## 2026-11-19 v1.12.0
+
+### Build & CI
+
+- Bumped the `gem_hadar` development dependency floor to **2.24.1** to align
+  with the `json` 3.x compatibility release.
+- Updated the `rubygems_version` in the gemspec to **4.0.24**.
+
+### Documentation
+
+- Replaced the YARD cheatsheet in `.contexts/yard.md` with a concrete
+  documentation-only example.
+- Added rules to generate `#` prefixed comments without executable Ruby code.
+- Updated the example to include YARD directives like `@!attribute`, `@param`,
+  and `@deprecated`.
+- Removed vim modelines from `Gemfile` and `Rakefile`.
+- Adopted the current `GemHadar` version.rb comment template in
+  `lib/more_math/version.rb`.
+
 ## 2026-01-22 v1.11.0
 
 - Added new entropy helper methods: `entropy_probabilities`,
