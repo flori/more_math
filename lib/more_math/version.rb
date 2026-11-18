@@ -5,7 +5,7 @@
 # by hand; it is rewritten on every `rake version` invocation.
 module MoreMath
   # The current version of the MoreMath gem as a String.
-  VERSION         = '1.11.0'
+  VERSION         = '1.12.0'
   VERSION_ARRAY   = VERSION.split('.').map(&:to_i) # :nodoc:
   VERSION_MAJOR   = VERSION_ARRAY[0] # :nodoc:
   VERSION_MINOR   = VERSION_ARRAY[1] # :nodoc:
