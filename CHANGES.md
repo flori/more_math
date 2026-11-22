@@ -183,13 +183,6 @@
 ### Features
 - Add `project` method to `Subset` class, allowing dataset elements
   to be mapped based on subset indices with size validation.
-- Support percentage strings for the `width` parameter in the
-  `Histogram#display` method to set width relative to terminal size.
-- Add `Histogram#terminal_width` method to retrieve the current terminal
-  column count for histogram display.
-
-### Breaking
-- Update `Histogram#display` to enforce a minimum width of 15 characters.
 
 ### Build & CI
 - Remove obsolete `binary` option from the discover block in `.utilsrc`.
