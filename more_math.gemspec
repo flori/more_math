@@ -17,19 +17,19 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT".freeze]
   s.rdoc_options = ["--title".freeze, "MoreMath -- More Math in Ruby".freeze, "--main".freeze, "README.md".freeze]
   s.required_ruby_version = Gem::Requirement.new(">= 2.0".freeze)
-  s.rubygems_version = "4.0.24".freeze
+  s.rubygems_version = "4.1.0".freeze
   s.summary = "Library that provides more mathematics.".freeze
   s.test_files = ["tests/cantor_pairing_function_test.rb".freeze, "tests/continued_fraction_test.rb".freeze, "tests/distribution_test.rb".freeze, "tests/entropy_test.rb".freeze, "tests/functions_test.rb".freeze, "tests/histogram_test.rb".freeze, "tests/lambert_test.rb".freeze, "tests/newton_bisection_test.rb".freeze, "tests/numberify_string_function_test.rb".freeze, "tests/permutation_test.rb".freeze, "tests/sequence_moving_average_test.rb".freeze, "tests/sequence_refinement_test.rb".freeze, "tests/sequence_test.rb".freeze, "tests/string_numeral_test.rb".freeze, "tests/subset_test.rb".freeze, "tests/test_helper.rb".freeze]
 
   s.specification_version = 4
 
-  s.add_development_dependency(%q<gem_hadar>.freeze, [">= 2.24.1".freeze])
-  s.add_development_dependency(%q<rake>.freeze, [">= 0".freeze])
-  s.add_development_dependency(%q<simplecov>.freeze, [">= 0".freeze])
-  s.add_development_dependency(%q<test-unit>.freeze, [">= 0".freeze])
-  s.add_development_dependency(%q<debug>.freeze, [">= 0".freeze])
-  s.add_development_dependency(%q<all_images>.freeze, [">= 0".freeze])
-  s.add_development_dependency(%q<context_spook>.freeze, [">= 0".freeze])
-  s.add_runtime_dependency(%q<tins>.freeze, ["~> 1".freeze])
-  s.add_runtime_dependency(%q<mize>.freeze, [">= 0".freeze])
+  s.add_development_dependency("gem_hadar".freeze, [">= 2.27.0".freeze])
+  s.add_development_dependency("rake".freeze, [">= 0".freeze])
+  s.add_development_dependency("simplecov".freeze, [">= 0".freeze])
+  s.add_development_dependency("test-unit".freeze, [">= 0".freeze])
+  s.add_development_dependency("debug".freeze, [">= 0".freeze])
+  s.add_development_dependency("all_images".freeze, [">= 0".freeze])
+  s.add_development_dependency("context_spook".freeze, [">= 0".freeze])
+  s.add_runtime_dependency("tins".freeze, ["~> 1".freeze])
+  s.add_runtime_dependency("mize".freeze, [">= 0".freeze])
 end
